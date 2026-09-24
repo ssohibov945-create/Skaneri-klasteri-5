@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="tj">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="calcTitle">Калкулятори Химиявӣ</title>
+<style>
+:root{--bg:#0c1222;--gold:#c9a227;--gold-l:#e8d48b;--text:#f1f5f9;--muted:#94a3b8;--dim:#64748b;--surf:rgba(20,28,46,.85);--border:rgba(201,162,39,.2)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:16px}
+.nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:20px}
+.nav a{color:var(--gold-l);text-decoration:none;padding:8px 14px;border:1px solid var(--border);border-radius:8px;font-size:.85rem;font-weight:600}
+.nav a:hover,.nav a.active{background:rgba(201,162,39,.12)}
+.wrap{max-width:1000px;margin:0 auto}
+h1{text-align:center;font-size:1.8rem;color:var(--gold-l);margin:16px 0 8px}
+.sub{text-align:center;color:var(--muted);margin-bottom:24px;font-size:.95rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.box{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:20px}
+.box h2{color:var(--gold);font-size:1.05rem;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+label{display:block;color:var(--muted);font-size:.85rem;margin-bottom:4px}
+input,select{width:100%;padding:10px;margin-bottom:10px;border-radius:8px;border:1px solid rgba(148,163,184,.2);background:rgba(0,0,0,.35);color:var(--text);font-size:.95rem}
+input:focus,select:focus{outline:none;border-color:var(--gold)}
+.btn{display:block;width:100%;padding:12px;border:none;border-radius:8px;background:linear-gradient(135deg,#c9a227,#a8841a);color:#0c1222;font-weight:700;cursor:pointer;font-size:.9rem;margin-top:4px}
+.btn:hover{opacity:.92}
+.res{margin-top:12px;padding:12px;background:rgba(0,0,0,.3);border-left:3px solid var(--gold);border-radius:8px;color:var(--gold-l);font-weight:600;text-align:center;min-height:48px}
+.formula{text-align:center;color:var(--dim);font-family:monospace;font-size:.85rem;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="nav">
+<a href="index.html">Асосӣ</a>
+<a href="photo.html">Ҷадвали Менделеев</a>
+<a href="photo2.html">Маълумот</a>
+<a href="photo3.html" class="active">Калькулятор</a>
+<a href="photo4.html">Тестҳо</a>
+</div>
+<div class="wrap">
+<h1 data-i18n="calcTitle">КАЛКУЛЯТОРИ ХИМИЯВӢ</h1>
+<p class="sub" data-i18n="calcSubtitle">Вазни молярӣ, концентрасия, мувозанат, табдили мол</p>
+<div class="grid">
+<div class="box">
+<h2 data-i18n="molarTitle">ВАЗНИ АТОМИ</h2>
+<label data-i18n="formulaLabel">Формула (H2O, NaCl…)</label>
+<input id="formulaInput" value="H2O" placeholder="Fe2O3">
+<button class="btn" onclick="calcMolar()" data-i18n="calcBtn">ҲИСОБ КУН</button>
+<div class="res" id="molarResult">—</div>
+<div class="formula">M = Σ(n × Ar)</div>
+</div>
+<div class="box">
+<h2 data-i18n="concTitle">КОНСЕНТРАТСИЯ</h2>
+<label data-i18n="massLabel">Вазн (г)</label>
+<input type="number" id="massInput" value="10">
+<label data-i18n="molarMassLabel">Вазни молярӣ (г/моль)</label>
+<input type="number" id="molarInput" value="58.44">
+<label data-i18n="volumeLabel">Ҳаҷм (л)</label>
+<input type="number" id="volumeInput" value="0.5">
+<button class="btn" onclick="calcConc()" data-i18n="calcBtn">ҲИСОБ КУН</button>
+<div class="res" id="concResult">—</div>
+<div class="formula">C = n / V</div>
+</div>
+<div class="box">
+<h2 data-i18n="balanceTitle">МУВОЗАНАТ</h2>
+<label data-i18n="equationLabel">Муодила</label>
+<input id="eqInput" value="H2 + O2 → H2O">
+<button class="btn" onclick="balance()" data-i18n="balanceBtn">МУВОЗАНАТ КУН</button>
+<div class="res" id="balResult">—</div>
+</div>
+<div class="box">
+<h2 data-i18n="convertTitle">МОЛ ↔ ГРАММ</h2>
+<label data-i18n="amountLabel">Миқдор</label>
+<input type="number" id="amtInput" value="2">
+<label data-i18n="convertTypeLabel">Навъ</label>
+<select id="convType"><option value="molToGram">Мол → Грамм</option><option value="gramToMol">Грамм → Мол</option></select>
+<label>M (г/моль)</label>
+<input type="number" id="convM" value="18">
+<button class="btn" onclick="convert()" data-i18n="convertBtn">ТАБДИЛ</button>
+<div class="res" id="convResult">—</div>
+</div>
+</div>
+</div>
+<script>
+const masses={H:1.008,He:4.003,Li:6.94,C:12.011,N:14.007,O:15.999,F:18.998,Na:22.99,Mg:24.305,Al:26.982,Si:28.085,P:30.974,S:32.06,Cl:35.45,K:39.098,Ca:40.078,Fe:55.845,Cu:63.546,Zn:65.38,Ag:107.87};
+function calcMolar(){
+  const f=document.getElementById('formulaInput').value.trim();
+  if(!f){document.getElementById('molarResult').textContent='Формуларо ворид кунед';return}
+  let total=0,el='',num='';
+  for(const ch of f){
+    if(ch>='A'&&ch<='Z'){if(el){total+=(masses[el]||0)*(num?+num:1)}el=ch;num=''}
+    else if(ch>='a'&&ch<='z')el+=ch;
+    else if(ch>='0'&&ch<='9')num+=ch;
+  }
+  if(el)total+=(masses[el]||0)*(num?+num:1);
+  document.getElementById('molarResult').innerHTML=total?f+' = <b>'+total.toFixed(3)+' г/моль</b>':'Формула нодуруст';
+}
+function calcConc(){
+  const m=+document.getElementById('massInput').value,M=+document.getElementById('molarInput').value,V=+document.getElementById('volumeInput').value;
+  if(!m||!M||!V){document.getElementById('concResult').textContent='Ҳама майдонҳоро пур кунед';return}
+  document.getElementById('concResult').innerHTML='C = <b>'+(m/M/V).toFixed(4)+' моль/л</b>';
+}
+function balance(){
+  const eq=document.getElementById('eqInput').value.trim().replace(/->/g,'→').replace(/\s+/g,' ');
+  const map={
+  'H2 + O2 → H2O':'2H₂ + O₂ → 2H₂O',
+  'Fe + O2 → Fe2O3':'4Fe + 3O₂ → 2Fe₂O₃',
+  'N2 + H2 → NH3':'N₂ + 3H₂ → 2NH₃',
+  'CH4 + O2 → CO2 + H2O':'CH₄ + 2O₂ → CO₂ + 2H₂O',
+  'C + O2 → CO2':'C + O₂ → CO₂',
+  'H2 + Cl2 → HCl':'H₂ + Cl₂ → 2HCl',
+  'Al + O2 → Al2O3':'4Al + 3O₂ → 2Al₂O₃',
+  'Mg + O2 → MgO':'2Mg + O₂ → 2MgO',
+  'Na + Cl2 → NaCl':'2Na + Cl₂ → 2NaCl',
+  'K + H2O → KOH + H2':'2K + 2H₂O → 2KOH + H₂',
+  'Na + H2O → NaOH + H2':'2Na + 2H₂O → 2NaOH + H₂',
+  'Ca + H2O → Ca(OH)2 + H2':'Ca + 2H₂O → Ca(OH)₂ + H₂',
+  'Zn + HCl → ZnCl2 + H2':'Zn + 2HCl → ZnCl₂ + H₂',
+  'Fe + HCl → FeCl2 + H2':'Fe + 2HCl → FeCl₂ + H₂',
+  'Al + HCl → AlCl3 + H2':'2Al + 6HCl → 2AlCl₃ + 3H₂',
+  'CaCO3 → CaO + CO2':'CaCO₃ → CaO + CO₂',
+  'H2O2 → H2O + O2':'2H₂O₂ → 2H₂O + O₂',
+  'NH3 + O2 → NO + H2O':'4NH₃ + 5O₂ → 4NO + 6H₂O',
+  'SO2 + O2 → SO3':'2SO₂ + O₂ → 2SO₃',
+  'CO + O2 → CO2':'2CO + O₂ → 2CO₂',
+  'C2H5OH + O2 → CO2 + H2O':'C₂H₅OH + 3O₂ → 2CO₂ + 3H₂O',
+  'H2SO4 + NaOH → Na2SO4 + H2O':'H₂SO₄ + 2NaOH → Na₂SO₄ + 2H₂O',
+  'HCl + NaOH → NaCl + H2O':'HCl + NaOH → NaCl + H₂O',
+  'CaO + H2O → Ca(OH)2':'CaO + H₂O → Ca(OH)₂',
+  'CO2 + H2O → H2CO3':'CO₂ + H₂O → H₂CO₃',
+  'CuO + H2 → Cu + H2O':'CuO + H₂ → Cu + H₂O',
+  'Fe2O3 + CO → Fe + CO2':'Fe₂O₃ + 3CO → 2Fe + 3CO₂',
+  'Zn + H2SO4 → ZnSO4 + H2':'Zn + H₂SO₄ → ZnSO₄ + H₂',
+  'Mg + H2SO4 → MgSO4 + H2':'Mg + H₂SO₄ → MgSO₄ + H₂',
+  'Ca + O2 → CaO':'2Ca + O₂ → 2CaO',
+  'S + O2 → SO2':'S + O₂ → SO₂',
+  'P + O2 → P2O5':'4P + 5O₂ → 2P₂O₅',
+  'Cu + O2 → CuO':'2Cu + O₂ → 2CuO',
+  'AgNO3 + NaCl → AgCl + NaNO3':'AgNO₃ + NaCl → AgCl + NaNO₃',
+  'BaCl2 + H2SO4 → BaSO4 + HCl':'BaCl₂ + H₂SO₄ → BaSO₄ + 2HCl',
+  'Na2CO3 + HCl → NaCl + CO2 + H2O':'Na₂CO₃ + 2HCl → 2NaCl + CO₂ + H₂O',
+  'CaCO3 + HCl → CaCl2 + CO2 + H2O':'CaCO₃ + 2HCl → CaCl₂ + CO₂ + H₂O',
+  'NH4Cl → NH3 + HCl':'NH₄Cl → NH₃ + HCl',
+  '2KClO3 → 2KCl + 3O2':'2KClO₃ → 2KCl + 3O₂',
+  'CH4 + Cl2 → CH3Cl + HCl':'CH₄ + Cl₂ → CH₃Cl + HCl'
+};
+  document.getElementById('balResult').innerHTML=map[eq]?'<b>'+map[eq]+'</b>':'Ин муодила дар система нест. Санҷед: H2 + O2 → H2O';
+}
+function convert(){
+  const a=+document.getElementById('amtInput').value,M=+document.getElementById('convM').value,t=document.getElementById('convType').value;
+  if(!a||!M){document.getElementById('convResult').textContent='Маълумотро ворид кунед';return}
+  document.getElementById('convResult').innerHTML=t==='molToGram'?a+' моль = <b>'+(a*M).toFixed(3)+' г</b>':a+' г = <b>'+(a/M).toFixed(4)+' моль</b>';
+}
+calcMolar();
+</script>
+<script src="js/i18n.js"></script>
+<script src="js/site-runtime.js"></script>
+</body>
+</html>

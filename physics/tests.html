@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="tj">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тестҳои физика | SCANNERI</title>
+    <link rel="stylesheet" href="physics.css">
+</head>
+
+<body>
+    <nav class="site-nav" aria-label="Навигатсия"><a class="brand" href="index.html"><span class="brand-mark">S</span>
+            SCANNERI</a>
+        <div class="nav-links"><a href="../index.html">Асосӣ</a><a href="../ximiya/photo.html">Химия</a><a
+                href="../biology/index.html">Биология</a><a class="active" href="index.html">Физика</a><a
+                href="#">Тоҷикӣ</a></div>
+    </nav>
+    <main class="page-shell test-shell">
+        <header class="section-heading">
+            <p class="eyebrow">ФИЗИКА · САНҶИШ</p>
+            <h1>Тести физика</h1>
+            <p>44 саволи сатҳи мактабӣ барои такрори мавзӯъҳои муҳими ММТ. Барои тамоми тест 22 дақиқа вақт дода
+                мешавад.</p>
+        </header>
+        <section id="testArea">
+            <div class="test-meta"><span class="progress-text" id="progress">Савол 1 аз 42</span><span class="timer"
+                    id="timer">22:00</span></div>
+            <article class="question-panel">
+                <p class="question-number" id="questionNumber"></p>
+                <h2 class="question-text" id="questionText"></h2>
+                <div class="options" id="options"></div>
+                <div class="test-actions"><button class="primary-button" id="nextButton" type="button">Саволи
+                        навбатӣ</button></div>
+                <p class="test-message" id="testMessage" role="alert"></p>
+            </article>
+        </section>
+        <section class="result-panel hidden" id="resultPanel">
+            <h2>Натиҷаи тест</h2><span class="result-score" id="resultScore"></span>
+            <p class="result-detail" id="resultDetail"></p><button class="primary-button" id="restartButton"
+                type="button">Бори дигар</button>
+        </section>
+        <a class="back-link" href="index.html">← Ба саҳифаи физика</a>
+    </main>
+    <script src="tests.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="tj">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="infoTitle">Химия - Маълумот</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
+body{background:#0c1222;color:#fff;padding:20px;min-height:100vh}
+.container{max-width:1100px;margin:0 auto;padding:20px}
+.top-nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:24px}
+.top-nav a{color:#e8d48b;text-decoration:none;padding:10px 18px;border:1px solid rgba(201,162,39,0.3);border-radius:8px;font-weight:600;font-size:0.9rem;transition:all 0.2s}
+.top-nav a:hover,.top-nav a.active{background:rgba(201,162,39,0.15);border-color:#c9a227}
+.header{text-align:center;padding:40px 20px;margin-bottom:32px;border-bottom:1px solid rgba(201,162,39,0.2)}
+.header h1{font-size:2.4rem;margin-bottom:12px;color:#e8d48b}
+.header p{font-size:1.05rem;max-width:640px;margin:0 auto;color:#94a3b8}
+.section{background:rgba(20,28,46,0.85);border-radius:16px;padding:28px;margin-bottom:24px;border:1px solid rgba(201,162,39,0.15);border-left:4px solid #c9a227}
+.section h2{font-size:1.5rem;margin-bottom:18px;color:#c9a227}
+.content{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{background:rgba(30,41,59,0.6);padding:20px;border-radius:12px;border:1px solid rgba(148,163,184,0.12)}
+.card h3{color:#c9a227;font-size:1.15rem;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid rgba(201,162,39,0.2)}
+.card p,.card li{font-size:0.95rem;color:#94a3b8;margin-bottom:8px;line-height:1.5}
+.scientist{display:flex;align-items:center;gap:18px;margin-bottom:16px;padding:16px;background:rgba(30,41,59,0.5);border-radius:12px;border:1px solid rgba(148,163,184,0.1)}
+.scientist img{width:88px;height:88px;min-width:88px;border-radius:50%;border:3px solid rgba(201,162,39,0.45);object-fit:cover;background:#1a1f29}
+.scientist .av{width:88px;height:88px;min-width:88px;border-radius:50%;border:3px solid rgba(201,162,39,0.45);background:linear-gradient(145deg,rgba(201,162,39,0.25),rgba(30,41,59,0.9));display:flex;align-items:center;justify-content:center;color:#e8d48b;font-weight:700;font-size:1.35rem}
+.scientist-info h4{font-size:1.1rem;color:#c9a227;margin-bottom:6px}
+.scientist-info p{font-size:0.9rem;color:#94a3b8;line-height:1.45}
+.badge-tj{display:inline-block;font-size:0.7rem;font-weight:700;letter-spacing:0.04em;color:#0c1222;background:linear-gradient(135deg,#c9a227,#e8d48b);padding:2px 8px;border-radius:4px;margin-left:6px;vertical-align:middle}
+.mendeleev-photo{display:flex;justify-content:center;margin-bottom:20px}
+.mendeleev-photo img{width:160px;height:160px;border-radius:50%;border:4px solid rgba(201,162,39,0.4);object-fit:cover;box-shadow:0 8px 24px rgba(0,0,0,0.4)}
+.formula-box{background:rgba(0,0,0,0.3);padding:14px;border-radius:10px;margin:10px 0;border:1px dashed rgba(201,162,39,0.35);text-align:center;font-size:1.1rem;color:#2dd4bf;font-family:monospace}
+.footer{text-align:center;padding:24px;color:#64748b;font-size:0.85rem;border-top:1px solid rgba(148,163,184,0.1);margin-top:32px}
+@media(max-width:600px){
+  .scientist{flex-direction:column;align-items:center;text-align:center}
+  .scientist img,.scientist .av{width:100px;height:100px}
+  .header h1{font-size:1.8rem}
+  .mendeleev-photo img{width:120px;height:120px}
+}
+</style>
+</head>
+<body>
+<div style="text-align:center;margin:12px 0" class="top-nav">
+<a href="index.html">Асосӣ</a>
+<a href="photo.html">Ҷадвали Менделеев</a>
+<a href="photo2.html" class="active">Маълумот</a>
+<a href="photo3.html">Калькулятор</a>
+<a href="photo4.html">Тестҳо</a>
+</div>
+<div class="container">
+<header class="header">
+<h1><i class="fas fa-atom"></i> <span data-i18n="infoTitle">ИЛМИ ХИМИЯ</span></h1>
+<p data-i18n="infoIntro">Дар ин саҳифа шумо ҳама маълумоти асосии химия, пайвастҳо, олимон ва таърихи ин илми ҷолибро хоҳед ёфт.</p>
+</header>
+<section class="section">
+<h2 data-i18n="whatIsChem">ЧИСТ ХИМИЯ?</h2>
+<div class="content">
+<div class="card"><h3 data-i18n="defTitle">Таъриф</h3><p data-i18n="defText">Химия — илмест, ки сохт, хосиятҳо, табдилёбии моддаҳо ва энергияро дар раванди вокунишҳо меомӯзад.</p></div>
+<div class="card"><h3 data-i18n="basicsTitle">Асосҳои химия</h3><p data-i18n="basicsText">Атом — хурдтарин ҷузъи модда. Атомҳо якҷоя шуда молекулаҳо ташкил медиҳанд. Намуна: H₂O.</p></div>
+<div class="card"><h3 data-i18n="reactionsTitle">Навъҳои вокунишҳо</h3><ul><li data-i18n="reaction1">Синтез: A + B → AB</li><li data-i18n="reaction2">Таҳлил: AB → A + B</li><li data-i18n="reaction3">Иваз: AB + C → AC + B</li><li data-i18n="reaction4">Ивази дучанда: AB + CD → AD + CB</li></ul></div>
+</div>
+</section>
+<section class="section">
+<h2 data-i18n="organicTitle">КИМИЁИ ОРГАНИКӢ</h2>
+<div class="content">
+<div class="card"><h3 data-i18n="organicWhat">Чист?</h3><p data-i18n="organicText">Химияи органикӣ пайвастҳои карбонро меомӯзад. Карбон зиёда аз 10 миллион пайваст ташкил медиҳад.</p></div>
+<div class="card"><h3 data-i18n="groupsTitle">Гурӯҳҳо</h3><p data-i18n="groupsText">Алканҳо (CH₄), Алкенҳо (C₂H₄), Алкинҳо (C₂H₂), Спиртҳо (C₂H₅OH).</p></div>
+<div class="card"><h3 data-i18n="importanceTitle">Аҳамият</h3><p data-i18n="importanceText">Доруҳо, пластик, рангҳо — бе химияи органикӣ имконнопазир.</p></div>
+</div>
+</section>
+<section class="section">
+<h2 data-i18n="mendeleevTitle">ДМИТРИЙ МЕНДЕЛЕЕВ</h2>
+<div class="mendeleev-photo">
+<img src="foto/Dmitriy%20mendeleev.webp" alt="Дмитрий Менделеев" onerror="this.src='foto/%D0%94%D0%BC%D0%B8%D1%82%D1%80%D0%B8%D0%B9%20%D0%B2%D0%B0%D0%BD%20%D0%BC%D0%B5%D0%BD%D0%B4%D0%B5%D0%BB%D0%B5%D0%B5%D0%B2.webp'">
+</div>
+<div class="content">
+<div class="card"><h3 data-i18n="bioTitle">Зиндагинома</h3><p data-i18n="bioText">Д.И. Менделеев (1834–1907) — химики рус, кашфкунандаи ҷадвали давравӣ.</p></div>
+<div class="card"><h3 data-i18n="discoveryTitle">Кашф</h3><p data-i18n="discoveryText">Соли 1869 ӯ унсурҳоро аз рӯи вазни атомӣ тартиб дод ва хосиятҳои давриро кашф кард.</p></div>
+<div class="card"><h3 data-i18n="criteriaTitle">Меъёрҳо</h3><ul><li data-i18n="criteria1">Хосиятҳо даврӣ такрор мешаванд.</li><li data-i18n="criteria2">Пешгӯии унсурҳои нав.</li><li data-i18n="criteria3">Асоси химияи муосир.</li></ul></div>
+</div>
+</section>
+<section class="section">
+<h2 data-i18n="scientistsTitle">ОЛИМОНИ БУЗУРГ</h2>
+<div class="scientist">
+<img src="foto/Lomonosov.jpg" alt="Михаил Ломоносов">
+<div class="scientist-info"><h4>Ломоносов (1711–1765)</h4><p data-i18n="lomonosovBio">Михаил Василевич Ломоносов — олими бузурги рус, асосгузори химияи физикӣ дар Русия. Қонуни ҳифзи массаро мустақилона кашф кард, аввалин лабораторияи химиявиро дар Русия таъсис дод.</p></div>
+</div>
+<div class="scientist">
+<img src="foto/%D0%90%D0%BD%D1%82%D1%83%D0%B0%D0%BD%20%D0%9B%D0%B0%D0%B2%D1%83%D0%B0%D0%B7%D1%8C%D0%B5.webp" alt="Антуан Лавуазье">
+<div class="scientist-info"><h4>Лавуазье (1743–1794)</h4><p data-i18n="lavoisierBio">Падари химияи муосир. Қонуни ҳифзи масса ва номи «оксиген».</p></div>
+</div>
+<div class="scientist">
+<img src="foto/%D0%A0%D0%BE%D0%B1%D0%B5%D1%80%D1%82%20%D0%91%D0%BE%D0%B9%D0%BB.webp" alt="Роберт Бойл">
+<div class="scientist-info"><h4>Бойл (1627–1691)</h4><p data-i18n="boyleBio">Таърифи муосири модда. «Кимиёгори шаффоф».</p></div>
+</div>
+<div class="scientist">
+<img src="foto/%D0%9C%D0%B0%D1%80%D0%B8%D1%8F%20%D0%9A%D1%8E%D1%80%D0%B8.webp" alt="Мария Кюри">
+<div class="scientist-info"><h4>Кюри (1867–1934)</h4><p data-i18n="curieBio">Ду ҷоизаи Нобел. Радий ва полоний.</p></div>
+</div>
+<div class="scientist">
+<img src="foto/%D0%9B%D0%B0%D0%B9%D0%BD%D1%83%D1%81%20%D0%9F%D0%BE%D0%BB%D0%B8%D0%BD%D0%B3.webp" alt="Лайнус Полинг">
+<div class="scientist-info"><h4>Полинг (1901–1994)</h4><p data-i18n="paulingBio">Ду ҷоизаи Нобел. Назарияи пайванди химиявӣ.</p></div>
+</div>
+</section>
+<section class="section">
+<h2>ОЛИМОНИ ТОҶИК <span class="badge-tj">ТОҶИКИСТОН</span></h2>
+<div class="scientist">
+<img src="foto/photo_2026-09-14_15-24-32.jpg" alt="Фарух Шаропов" loading="lazy">
+<div class="scientist-info">
+<h4>Фарух Шаропов <span class="badge-tj">ТОҶ</span></h4>
+<p data-i18n="sharopovBio">Фарух Сафолбекович Шаропов (с. 1976) — химики тоҷик, доктори илм. Хатмкардаи факултаи химияи ДДТ. Муҳаққиқи равғанҳои эфирӣ ва маҳсулоти табиӣ. Аз соли 2021 дар рӯйхати 2% беҳтарин олимон дар ҷаҳон (Stanford / Scopus). Зиёда аз 100 мақолаи илмӣ, h-индекс ≈ 40.</p>
+</div>
+</div>
+<div class="scientist">
+<img src="foto/photo_2026-09-14_15-24-37.jpg" alt="Махсуд Саидаминов" loading="lazy">
+<div class="scientist-info">
+<h4>Махсуд Саидаминов <span class="badge-tj">ТОҶ</span></h4>
+<p data-i18n="saidaminovBio">Махсуд Саидаминов (с. 1988) — химики тоҷик, профессор. Мутахассиси маводи перовскитӣ ва технологияҳои стратегӣ. Кор дар KAUST, MIT, Донишгоҳи Торонто. Дар рӯйхати 2% беҳтарин олимон дар ҷаҳон. Зиёда аз 170 мақола, ҳазорҳо иқтибос, h-индекс ≈ 69.</p>
+</div>
+</div>
+</section>
+<section class="section">
+<h2 data-i18n="formulasTitle">ФОРМУЛАҲОИ МУҲИМ</h2>
+<div class="formula-box">H₂O — Об</div>
+<div class="formula-box">CO₂ — Диоксиди карбон</div>
+<div class="formula-box">CH₄ — Метан</div>
+<div class="formula-box">C₆H₁₂O₆ — Глюкоза</div>
+<div class="formula-box">NaCl — Намаки ош</div>
+<div class="formula-box">H₂SO₄ — Кислотаи сулфат</div>
+</section>
+<footer class="footer"><p>© 2026 · Иҷрокунанда: Ҳасанов.О</p><p data-i18n="footerInfo">Ҳамаи маълумот барои омӯзиш аст.</p></footer>
+</div>
+<script src="js/i18n.js"></script>
+<script src="js/site-runtime.js"></script>
+</body>
+</html>

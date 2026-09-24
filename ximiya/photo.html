@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="tj">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ҷадвали даврии Менделеев — 118 элемент бо сурат ва маълумот">
+  <title data-i18n="siteTitle">SCANNERI ELEMENTHO</title>
+  <style>
+    :root {
+      --bg: #0c1222;
+      --gold: #c9a227;
+      --gold-l: #e8d48b;
+      --teal: #2dd4bf;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --dim: #64748b;
+      --surf: rgba(20, 28, 46, .92);
+      --border: rgba(201, 162, 39, .22);
+      --cell: 44px;
+      --gap: 3px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.45
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      padding: 12px;
+      border-bottom: 1px solid rgba(148, 163, 184, .1);
+      align-items: center
+    }
+
+    .nav a {
+      color: var(--gold-l);
+      text-decoration: none;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: .82rem;
+      font-weight: 600
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      background: rgba(201, 162, 39, .14);
+      border-color: var(--gold)
+    }
+
+    .lang-bar {
+      display: flex;
+      gap: 4px;
+      margin-left: 8px
+    }
+
+    .lang-bar .lang-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .75rem;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer
+    }
+
+    .lang-bar .lang-btn:hover {
+      color: var(--gold-l);
+      border-color: var(--gold)
+    }
+
+    .lang-bar .lang-btn.active {
+      color: #0c1222;
+      background: linear-gradient(135deg, #c9a227, #a8841a);
+      border-color: var(--gold)
+    }
+
+    .wrap {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 16px 12px 40px
+    }
+
+    h1 {
+      text-align: center;
+      font-size: clamp(1.35rem, 4vw, 1.75rem);
+      color: var(--gold-l);
+      margin: 8px 0 4px
+    }
+
+    .sub {
+      text-align: center;
+      color: var(--muted);
+      font-size: .9rem;
+      margin-bottom: 18px
+    }
+
+    .search {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 18px;
+      flex-wrap: wrap
+    }
+
+    .search input {
+      flex: 1;
+      min-width: 160px;
+      max-width: 340px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(0, 0, 0, .35);
+      color: var(--text);
+      font-size: 1rem
+    }
+
+    .search input:focus {
+      outline: none;
+      border-color: var(--gold)
+    }
+
+    .search button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #c9a227, #a8841a);
+      color: #0c1222;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: .95rem
+    }
+
+    .sel {
+      display: none;
+      background: var(--surf);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gold);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap
+    }
+
+    .sel .sym {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--gold)
+    }
+
+    .sel-info h2 {
+      font-size: 1.25rem;
+      margin-bottom: 2px
+    }
+
+    .sel-info span {
+      color: var(--muted);
+      font-size: .85rem
+    }
+
+    .table-box {
+      background: var(--surf);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 10px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 16px
+    }
+
+    .table-title {
+      text-align: center;
+      color: var(--muted);
+      font-size: .8rem;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: .06em
+    }
+
+    #pt {
+      display: grid;
+      grid-template-columns: repeat(18, var(--cell));
+      gap: var(--gap);
+      justify-content: center;
+      min-width: max-content;
+      margin: 0 auto
+    }
+
+    .cell {
+      background: rgba(30, 41, 59, .95);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 1px solid transparent;
+      position: relative;
+      height: var(--cell);
+      transition: transform .15s, border-color .15s
+    }
+
+    .cell:hover {
+      transform: scale(1.1);
+      border-color: var(--gold);
+      z-index: 5
+    }
+
+    .cell.active {
+      background: rgba(201, 162, 39, .22);
+      border-color: var(--gold)
+    }
+
+    .cell .n {
+      position: absolute;
+      top: 2px;
+      left: 3px;
+      font-size: .5rem;
+      opacity: .55
+    }
+
+    .cell .s {
+      color: var(--teal);
+      font-weight: 800;
+      font-size: .95rem;
+      margin-top: 6px
+    }
+
+    .detail {
+      display: none;
+      background: var(--surf);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-top: 4px
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px
+    }
+
+    .detail .big {
+      font-size: 2.6rem;
+      font-weight: 900;
+      color: var(--gold)
+    }
+
+    .detail .name {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin: 6px 0 16px
+    }
+
+    .info-l {
+      color: var(--gold);
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 4px
+    }
+
+    .info-t {
+      color: var(--muted);
+      margin-bottom: 14px;
+      font-size: .95rem
+    }
+
+    .photo-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center
+    }
+
+    .el-img {
+      width: 100%;
+      max-width: 280px;
+      border-radius: 12px;
+      border: 2px solid rgba(201, 162, 39, .3);
+      background: #1a1f29;
+      min-height: 180px;
+      object-fit: cover
+    }
+
+    .img-fallback {
+      width: 100%;
+      max-width: 280px;
+      min-height: 180px;
+      border-radius: 12px;
+      border: 2px dashed rgba(201, 162, 39, .25);
+      background: rgba(30, 41, 59, .6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dim);
+      font-size: .9rem;
+      text-align: center;
+      padding: 16px
+    }
+
+    .photo-lbl {
+      color: var(--gold);
+      font-size: .8rem;
+      font-weight: 700;
+      margin-top: 10px;
+      text-align: center
+    }
+
+    @media(max-width:720px) {
+      :root {
+        --cell: 34px;
+        --gap: 2px
+      }
+
+      .detail-grid {
+        grid-template-columns: 1fr
+      }
+
+      .photo-col {
+        order: -1
+      }
+
+      .nav a {
+        font-size: .75rem;
+        padding: 7px 10px
+      }
+
+      .search button {
+        width: 100%;
+        max-width: 340px
+      }
+    }
+
+    @media(max-width:400px) {
+      :root {
+        --cell: 28px
+      }
+    }
+
+    #lang-switcher {
+      display: none !important
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <a href="index.html" data-i18n="navHome">Асосӣ</a>
+    <a href="photo.html" class="active" data-i18n="btnTable">Ҷадвали Менделеев</a>
+    <a href="photo2.html" data-i18n="btnInfo">Маълумот</a>
+    <a href="photo3.html" data-i18n="btnCalc">Калькулятор</a>
+    <a href="photo4.html" data-i18n="btnTest">Тестҳо</a>
+    <div class="lang-bar" id="langBar">
+      <button type="button" class="lang-btn" data-lang="tg">🇹🇯 ТОҶ</button>
+      <button type="button" class="lang-btn" data-lang="ru">🇷🇺 РУС</button>
+      <button type="button" class="lang-btn" data-lang="en">🇬🇧 ENG</button>
+    </div>
+  </div>
+  <div class="wrap">
+    <h1 data-i18n="siteTitle">SCANNERI ELEMENTHO</h1>
+    <p class="sub" data-i18n="subtitle">Ҷадвали даврии элементҳо — 118 элемент</p>
+    <div class="search">
+      <input id="q" type="search" placeholder="Номи элемент ё рамз..." data-i18n-placeholder="searchPlaceholder"
+        autocomplete="off">
+      <button type="button" onclick="doSearch()" data-i18n="searchBtn">ҶУСТАН</button>
+    </div>
+    <div class="sel" id="sel" style="display:none">
+      <span class="sym" id="selSym">H</span>
+      <div class="sel-info">
+        <h2 id="selName">Ҳидроген</h2><span id="selMeta">#1 · M = 1.008</span>
+      </div>
+    </div>
+    <div class="table-box">
+      <div class="table-title" data-i18n="tableTitle">ҶАДВАЛИ ДАВРИИ Д.И. МЕНДЕЛЕЕВ</div>
+      <div id="pt"></div>
+    </div>
+    <div class="detail" id="detail">
+      <div class="detail-grid">
+        <div>
+          <span class="big" id="dSym">H</span>
+          <div class="name" id="dName">Ҳидроген (H)</div>
+          <span class="info-l" data-i18n="labelUse">ИСТИФОДАБАРИИ АСОСӢ</span>
+          <div class="info-t" id="dUse">—</div>
+          <span class="info-l" data-i18n="labelFact">ХОСИЯТҲОИ ҶОЛИБ</span>
+          <div class="info-t" id="dFact">—</div>
+          <span class="info-l" data-i18n="labelDanger">ХАТАРНОКӢ</span>
+          <div class="info-t" id="dDanger">—</div>
+          <span class="info-l" data-i18n="labelWeight">ВАЗНИ АТОМИ</span>
+          <div class="info-t" id="dWeight">—</div>
+        </div>
+        <div class="photo-col">
+          <img id="elImg" class="el-img" alt="" style="display:none"
+            onerror="this.style.display='none';document.getElementById('imgFb').style.display='flex'">
+          <div id="imgFb" class="img-fallback" style="display:none" data-i18n="imgMissing">Сурат дастрас нест</div>
+          <div class="photo-lbl" data-i18n="photoLabel">СУРАТИ ЭЛЕМЕНТ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const SYM = [null, "H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne", "Na", "Mg", "Al", "Si", "P", "S", "Cl", "Ar", "K", "Ca",
+      "Sc", "Ti", "V", "Cr", "Mn", "Fe", "Co", "Ni", "Cu", "Zn", "Ga", "Ge", "As", "Se", "Br", "Kr", "Rb", "Sr", "Y", "Zr", "Nb", "Mo",
+      "Tc", "Ru", "Rh", "Pd", "Ag", "Cd", "In", "Sn", "Sb", "Te", "I", "Xe", "Cs", "Ba", "La", "Ce", "Pr", "Nd", "Pm", "Sm", "Eu", "Gd", "Tb",
+      "Dy", "Ho", "Er", "Tm", "Yb", "Lu", "Hf", "Ta", "W", "Re", "Os", "Ir", "Pt", "Au", "Hg", "Tl", "Pb", "Bi", "Po", "At", "Rn", "Fr", "Ra",
+      "Ac", "Th", "Pa", "U", "Np", "Pu", "Am", "Cm", "Bk", "Cf", "Es", "Fm", "Md", "No", "Lr", "Rf", "Db", "Sg", "Bh", "Hs", "Mt", "Ds", "Rg",
+      "Cn", "Nh", "Fl", "Mc", "Lv", "Ts", "Og"];
+    const IMG = {
+      H: "foto/hydrogen.jpg", He: "foto/ielement.jpg", Li: "foto/litiy.jpg", Be: "foto/berilliy.jpg", B: "foto/B.jpg",
+      C: "foto/c.jpg", N: "foto/n.jpg", O: "foto/o.jpg", F: "foto/f.jpg", Na: "foto/ielement.jpg", Mg: "foto/mg.jpg", Al: "foto/Al.jpg",
+      Si: "foto/si.jpg", P: "foto/p.gif", S: "foto/s.jpg", Cl: "foto/cl.jpg", K: "foto/k.jpg", Ca: "foto/ca.jpg", Sc: "foto/sc.jpg",
+      Ti: "foto/ti.jpg", V: "foto/v.jpg", Cr: "foto/cr.jpg", Mn: "foto/mn.jpg", Fe: "foto/fe.jpg", Co: "foto/co.jpg", Ni: "foto/Ni.jpg",
+      Cu: "foto/cu.jpg", Zn: "foto/zn.jpg", Ga: "foto/Ga.jpg", Ge: "foto/ge.jpg", As: "foto/as.jpg", Se: "foto/se.jpg", Br: "foto/br.jpg",
+      Rb: "foto/rb.jpg", Sr: "foto/sr.jpg", Y: "foto/Y.jpg", Zr: "foto/zr.jpg", Nb: "foto/nb.jpg", Mo: "foto/mo.jpg", Tc: "foto/tc.jpg",
+      Ru: "foto/ru.jpg", Rh: "foto/rh.jpg", Pd: "foto/pd.jpg", Ag: "foto/ag.jpg", Cd: "foto/cd.jpg", In: "foto/in.jpg", Sn: "foto/sn.jpg",
+      Sb: "foto/sb.jpg", Te: "foto/te.jpg", I: "foto/i.webp", Cs: "foto/cs.jpg", Ba: "foto/ba.jpg", La: "foto/la.jpg", Ce: "foto/ce.jpg",
+      Pr: "foto/pr.jpg", Nd: "foto/nd.jpg", Pm: "foto/pm.jpg", Sm: "foto/sm.jpg", Eu: "foto/eu.jpg", Gd: "foto/gd.jpg", Tb: "foto/tb.jpg",
+      Dy: "foto/dy.jpg", Ho: "foto/ho.jpg", Er: "foto/er.jpg", Tm: "foto/tm.jpg", Yb: "foto/yb.jpg", Lu: "foto/lu.jpg", Hf: "foto/hf.jpg",
+      Ta: "foto/ta.jpg", W: "foto/w.jpg", Re: "foto/re.jpg", Os: "foto/os.jpg", Ir: "foto/ir.jpg", Pt: "foto/pt.jpg", Au: "foto/au.jpg",
+      Hg: "foto/hg.jpg", Tl: "foto/tl.jpg", Pb: "foto/pb.jpg", Bi: "foto/bi.jpg", Po: "foto/po.jpg", At: "foto/at.jpg", Rn: "foto/rn.jpg",
+      Fr: "foto/fr.jpg", Ra: "foto/ra.jpg", Ac: "foto/ac.jpg", Th: "foto/th.jpg", Pa: "foto/pa.jpg", U: "foto/u.jpg", Np: "foto/np.jpg",
+      Pu: "foto/pu.jpg", Am: "foto/am.jpg", Bk: "foto/bk.jpg", Cf: "foto/cf.jpg"
+    };
+    const DB = {
+      h: {
+        name: "Ҳидроген (H)",
+        w: "1.008",
+        use: "Сӯзишвории мушакҳо ва ситораҳо.",
+        fact: "Элементи аз ҳама паҳншуда дар Коинот.",
+        danger: "Тарканда аст."
+      },
+      he: {
+        name: "Ҳелий (He)",
+        w: "4.003",
+        use: "Пур кардани пуфакҳо ва хунуккунӣ.",
+        fact: "Дувумин элементи сабуктарин.",
+        danger: "Бехатар."
+      },
+      li: {
+        name: "Литий (Li)",
+        w: "6.94",
+        use: "Батареяҳои телефон ва ноутбук.",
+        fact: "Метавонад дар болои об шино кунад.",
+        danger: "Ҳангоми тамос бо об метаркад."
+      },
+      be: {
+        name: "Бериллий (Be)",
+        w: "9.012",
+        use: "Қисмҳои тайёра.",
+        fact: "Сабук ва мустаҳкам.",
+        danger: "Чанг заҳрнок."
+      },
+      b: {
+        name: "Бор (B)",
+        w: "10.81",
+        use: "Шишаҳои тобовар.",
+        fact: "Барои сахт кардани пӯлод.",
+        danger: "Бехатар."
+      },
+      c: {
+        name: "Карбон (C)",
+        w: "12.011",
+        use: "Алмаз, графит, асоси ҳаёт.",
+        fact: "Алмаз ва ангишт — як элемент.",
+        danger: "Бехатар."
+      },
+      n: {
+        name: "Азот (N)",
+        w: "14.007",
+        use: "Нуриҳо ва яхкунӣ.",
+        fact: "78% ҳаворо ташкил медиҳад.",
+        danger: "Моеъ — ниҳоят сард."
+      },
+      o: {
+        name: "Оксиген (O)",
+        w: "15.999",
+        use: "Нафаскашӣ.",
+        fact: "Моеъ ранги кабуд дорад.",
+        danger: "Оташгиранда."
+      },
+      f: {
+        name: "Фтор (F)",
+        w: "18.998",
+        use: "Хамираи дандон.",
+        fact: "Фаолтарин гайриметалл.",
+        danger: "Гази заҳролуд."
+      },
+      ne: {
+        name: "Неон (Ne)",
+        w: "20.180",
+        use: "Лавҳаҳои рекламавӣ.",
+        fact: "Ранги сурх.",
+        danger: "Бехатар."
+      },
+      na: {
+        name: "Натрий (Na)",
+        w: "22.990",
+        use: "Намаки ош.",
+        fact: "Металли мулоим.",
+        danger: "Бо об метаркад."
+      },
+      mg: {
+        name: "Магний (Mg)",
+        w: "24.305",
+        use: "Фейерверкҳо.",
+        fact: "Нури сафед.",
+        danger: "Бехатар."
+      },
+      al: {
+        name: "Алюминий (Al)",
+        w: "26.982",
+        use: "Тайёраҳо, фолга.",
+        fact: "Пештар аз тилло гаронтар буд.",
+        danger: "Бехатар."
+      },
+      si: {
+        name: "Кремний (Si)",
+        w: "28.085",
+        use: "Шиша ва чипҳо.",
+        fact: "Дуюмин дар Замин.",
+        danger: "Бехатар."
+      },
+      p: {
+        name: "Фосфор (P)",
+        w: "30.974",
+        use: "Гӯгирд ва нуриҳо.",
+        fact: "Дар торикӣ нур мепошад.",
+        danger: "Заҳролуд."
+      },
+      s: {
+        name: "Сулфур (S)",
+        w: "32.06",
+        use: "Кислотаи сулфат.",
+        fact: "Ранги зард.",
+        danger: "Бехатар."
+      },
+      cl: {
+        name: "Хлор (Cl)",
+        w: "35.45",
+        use: "Безараргардонии об.",
+        fact: "Гази зард-сабз.",
+        danger: "Заҳролуд."
+      },
+      ar: {
+        name: "Аргон (Ar)",
+        w: "39.948",
+        use: "Лампаҳо.",
+        fact: "Гази инертӣ.",
+        danger: "Бехатар."
+      },
+      k: {
+        name: "Калий (K)",
+        w: "39.098", use: "Нуриҳо.",
+        fact: "Дар об метаркад.",
+        danger: "Хатарнок."
+      },
+      ca: {
+        name: "Калсий (Ca)",
+        w: "40.078", use: "Устухонҳо.",
+        fact: "Металли нуқрагун.",
+        danger: "Бехатар."
+      },
+      sc: {
+        name: "Скандий (Sc)",
+        w: "44.956",
+        use: "Лампаҳо.",
+        fact: "Металли сабук.",
+        danger: "Бехатар."
+      },
+      ti: {
+        name: "Титан (Ti)",
+        w: "47.867",
+        use: "Имплантҳо, авиация.",
+        fact: "Ба зангзанӣ тобовар.",
+        danger: "Бехатар."
+      },
+      v: {
+        name: "Ванадий (V)",
+        w: "50.942",
+        use: "Пӯлод.",
+        fact: "Номаш аз олиҳа.",
+        danger: "Заҳролуд."
+      },
+      cr: {
+        name: "Хром (Cr)",
+        w: "51.996",
+        use: "Пӯлоди зангногир.",
+        fact: "Занг намезанад.",
+        danger: "Бехатар."
+      },
+      mn: {
+        name: "Марганец (Mn)",
+        w: "54.938",
+        use: "Релсҳо, батареяҳо.",
+        fact: "Барои майна.",
+        danger: "Бехатар."
+      },
+      fe: {
+        name: "Оҳан (Fe)",
+        w: "55.845",
+        use: "Сохтмон, гемоглобин.",
+        fact: "Миррих сурх аст.",
+        danger: "Бехатар."
+      },
+      co: {
+        name: "Кобалт (Co)",
+        w: "58.933", use: "Магнитҳо.",
+        fact: "Ранги кабуд.",
+        danger: "Дар миқдори зиёд заҳрнок."
+      },
+      ni: {
+        name: "Никел (Ni)",
+        w: "58.693", use: "Тангаҳо.",
+        fact: "Ядрои Замин.",
+        danger: "Аллергия."
+      },
+      cu: {
+        name: "Мис (Cu)",
+        w: "63.546",
+        use: "Симҳои барқӣ.",
+        fact: "Якумин металли истифодашуда.",
+        danger: "Бехатар."
+      },
+      zn: {
+        name: "Руҳ (Zn)",
+        w: "65.38",
+        use: "Батареяҳо.",
+        fact: "Барои имунитет.",
+        danger: "Бехатар."
+      },
+      ga: {
+        name: "Галлий (Ga)",
+        w: "69.723",
+        use: "Микросхемаҳо.",
+        fact: "Дар кафи даст об мешавад.",
+        danger: "Бехатар."
+      },
+      ge: {
+        name: "Германий (Ge)",
+        w: "72.630",
+        use: "Нахҳои оптикӣ.",
+        fact: "Аввалин транзисторҳо.",
+        danger: "Бехатар."
+      },
+      as: {
+        name: "Арсен (As)",
+        w: "74.921",
+        use: "Нимноқилҳо.",
+        fact: "«Подшоҳи заҳрҳо».",
+        danger: "Хеле заҳрнок."
+      },
+      se: {
+        name: "Селен (Se)",
+        w: "78.971",
+        use: "Панелҳои офтобӣ.",
+        fact: "Фотоэлектрикӣ.",
+        danger: "Дар миқдори зиёд заҳрнок."
+      },
+      br: {
+        name: "Бром (Br)",
+        w: "79.904",
+        use: "Тиб.",
+        fact: "Ягона гайриметалли моеъ.",
+        danger: "Заҳролуд."
+      },
+      kr: {
+        name: "Криптон (Kr)",
+        w: "83.798", use: "Лампаҳо.",
+        fact: "Гази «пинҳон».",
+        danger: "Бехатар."
+      },
+      rb: {
+        name: "Рубидий (Rb)",
+        w: "85.468",
+        use: "Соатҳои атомӣ.",
+        fact: "Дар ҳаво оташ мегирад.",
+        danger: "Хатарнок."
+      },
+      sr: {
+        name: "Стронсий (Sr)",
+        w: "87.62",
+        use: "Фейерверкҳои сурх.",
+        fact: "Ба ҷои калсий.",
+        danger: "Бехатар."
+      },
+      y: {
+        name: "Иттрий (Y)",
+        w: "88.906", use: "Лазерҳо.",
+        fact: "Аз Иттербӣ.",
+        danger: "Бехатар."
+      },
+      zr: {
+        name: "Цирконий (Zr)",
+        w: "91.224", use: "Реакторҳо.",
+        fact: "Ба зангзанӣ тобовар.",
+        danger: "Бехатар."
+      },
+      nb: {
+        name: "Ниобий (Nb)",
+        w: "92.906", use: "Хӯлаҳо.",
+        fact: "Аз Ниобея.",
+        danger: "Бехатар."
+      },
+      mo: {
+        name: "Молибден (Mo)",
+        w: "95.95",
+        use: "Пӯлоди баландсифат.",
+        fact: "Нуқтаи обшавии баланд.",
+        danger: "Бехатар."
+      },
+      tc: {
+        name: "Технеций (Tc)",
+        w: "98",
+        use: "Тибби ядроӣ.",
+        fact: "Якумин элементи сунъӣ.",
+        danger: "Радиоактив."
+      },
+      ru: {
+        name: "Рутений (Ru)",
+        w: "101.07",
+        use: "Катализаторҳо.",
+        fact: "Гурӯҳи платина.",
+        danger: "Бехатар."
+      },
+      rh: {
+        name: "Родий (Rh)",
+        w: "102.91",
+        use: "Катализатори автомобил.",
+        fact: "Гаронтарин металлҳо.",
+        danger: "Бехатар."
+      },
+      pd: {
+        name: "Палладий (Pd)",
+        w: "106.42",
+        use: "Катализатор.",
+        fact: "Ҳидрогенро ҷабб мекунад.",
+        danger: "Бехатар."
+      },
+      ag: {
+        name: "Нуқра (Ag)",
+        w: "107.87", use: "Заргарӣ.",
+        fact: "Беҳтарин ноқил.",
+        danger: "Бехатар."
+      },
+      cd: {
+        name: "Кадмий (Cd)",
+        w: "112.41",
+        use: "Батареяҳо.",
+        fact: "Заҳрнок.",
+        danger: "Заҳрнок."
+      },
+      in: {
+        name: "Индий (In)",
+        w: "114.82",
+        use: "Экранҳои сенсорӣ.",
+        fact: "Мулоим.",
+        danger: "Бехатар."
+      },
+      sn: {
+        name: "Қалъагӣ (Sn)",
+        w: "118.71",
+        use: "Қалъагӣ кардани зарфҳо.",
+        fact: "«Бемории қалъагӣ».",
+        danger: "Бехатар."
+      },
+      sb: {
+        name: "Сурма (Sb)",
+        w: "121.76",
+        use: "Хӯлаҳо.",
+        fact: "Металлоид.",
+        danger: "Заҳрнок."
+      },
+      te: {
+        name: "Теллур (Te)",
+        w: "127.60",
+        use: "Нимноқилҳо.",
+        fact: "Бӯи нохуш.",
+        danger: "Заҳрнок."
+      },
+      i: {
+        name: "Йод (I)",
+        w: "126.90",
+        use: "Тиб.",
+        fact: "Барои сипаршакл.",
+        danger: "Дар миқдори зиёд заҳрнок."
+      },
+      xe: {
+        name:
+          "Ксенон (Xe)",
+        w: "131.29",
+        use: "Лампаҳо.",
+        fact: "Гази нодир.",
+        danger: "Бехатар."
+      },
+      cs: {
+        name: "Сезий (Cs)",
+        w: "132.91",
+        use: "Соатҳои атомӣ.",
+        fact: "Фаолтарин металл.",
+        danger: "Хеле хатарнок."
+      },
+      ba: {
+        name: "Барий (Ba)",
+        w: "137.33",
+        use: "Рентген.",
+        fact: "Ранги сабз дар алов.",
+        danger: "Пайвастагиҳо заҳрноканд."
+      },
+      la: {
+        name: "Лантан (La)",
+        w: "138.91",
+        use: "Батареяҳо.",
+        fact: "Аввалин лантаноид.",
+        danger: "Бехатар."
+      },
+      ce: {
+        name: "Серий (Ce)",
+        w: "140.12",
+        use: "Санги оташгирон.",
+        fact: "Дар ҳаво оташ мегирад.",
+        danger: "Бехатар."
+      },
+      pr: {
+        name: "Празеодим (Pr)",
+        w: "140.91", use: "Магнитҳо.",
+        fact: "Ранги сабз.",
+        danger: "Бехатар."
+      },
+      nd: {
+        name: "Неодим (Nd)",
+        w: "144.24",
+        use: "Магнитҳои қавӣ.",
+        fact: "Қавитарин магнитҳо.",
+        danger: "Бехатар."
+      },
+      pm: {
+        name: "Прометий (Pm)",
+        w: "145",
+        use: "Батареяҳои ядроӣ.",
+        fact: "Радиоактив.",
+        danger: "Радиоактив."
+      },
+      sm: {
+        name: "Самарий (Sm)",
+        w: "150.36",
+        use: "Магнитҳо.",
+        fact: "Барои саратон.",
+        danger: "Бехатар."
+      },
+      eu: {
+        name: "Европий (Eu)",
+        w: "151.96",
+        use: "Экранҳои TV.",
+        fact: "Нури сурх ва кабуд.",
+        danger: "Бехатар."
+      },
+      gd: {
+        name: "Гадолиний (Gd)",
+        w: "157.25",
+        use: "MRI.",
+        fact: "Магнитӣ.",
+        danger: "Бехатар."
+      },
+      tb: {
+        name: "Тербий (Tb)",
+        w: "158.93",
+        use: "Лампаҳо.",
+        fact: "Ранги сабз.",
+        danger: "Бехатар."
+      },
+      dy: {
+        name: "Диспрозий (Dy)",
+        w: "162.50",
+        use: "Магнитҳо.",
+        fact: "Ба ҳарорати баланд тобовар.",
+        danger: "Бехатар."
+      },
+      ho: {
+        name: "Гольмий (Ho)",
+        w: "164.93",
+        use: "Лазерҳои тиббӣ.",
+        fact: "Қавитарин майдони магнитӣ.",
+        danger: "Бехатар."
+      },
+      er: {
+        name: "Эрбий (Er)",
+        w: "167.26",
+        use: "Нахҳои оптикӣ.",
+        fact: "Ранги гулобӣ.",
+        danger: "Бехатар."
+      },
+      tm: {
+        name: "Тулий (Tm)",
+        w: "168.93",
+        use: "Рентген.",
+        fact: "Хеле нодир.",
+        danger: "Бехатар."
+      },
+      yb: {
+        name: "Иттербий (Yb)",
+        w: "173.05",
+        use: "Лазерҳо.",
+        fact: "Мулоим.",
+        danger: "Бехатар."
+      },
+      lu: {
+        name: "Лютеций (Lu)",
+        w: "174.97",
+        use: "Катализаторҳо.",
+        fact: "Охирин лантаноид.",
+        danger: "Бехатар."
+      },
+      hf: {
+        name: "Гафний (Hf)",
+        w: "178.49",
+        use: "Реакторҳо.",
+        fact: "Монанд ба цирконий.",
+        danger: "Бехатар."
+      },
+      ta: {
+        name: "Тантал (Ta)",
+        w: "180.95",
+        use: "Конденсаторҳо.",
+        fact: "Ба зангзанӣ тобовар.",
+        danger: "Бехатар."
+      },
+      w: {
+        name: "Волфрам (W)",
+        w: "183.84",
+        use: "Риштаҳои лампа.",
+        fact: "Баландтарин нуқтаи обшавӣ.",
+        danger: "Бехатар."
+      },
+      re: {
+        name: "Рений (Re)",
+        w: "186.21",
+        use: "Муҳаррикҳо.",
+        fact: "Нодир.",
+        danger: "Бехатар."
+      },
+      os: {
+        name: "Осмий (Os)",
+        w: "190.23",
+        use: "Нӯги қалам.",
+        fact: "Вазнинтарин.",
+        danger: "Оксиди заҳрнок."
+      },
+      ir: {
+        name: "Иридий (Ir)",
+        w: "192.22",
+        use: "Шамъҳои автомобил.",
+        fact: "Ба зангзанӣ тобовартарин.",
+        danger: "Бехатар."
+      },
+      pt: {
+        name: "Платина (Pt)",
+        w: "195.08",
+        use: "Заргарӣ.",
+        fact: "Қиматбаҳо.",
+        danger: "Бехатар."
+      },
+      au: {
+        name: "Тилло (Au)",
+        w: "196.97",
+        use: "Заргарӣ.",
+        fact: "Занг намезанад.",
+        danger: "Бехатар."
+      },
+      hg: {
+        name: "Симаб (Hg)",
+        w: "200.59",
+        use: "Термометрҳо.",
+        fact: "Ягона металли моеъ.",
+        danger: "Хеле заҳрнок."
+      },
+      tl: {
+        name: "Таллий (Tl)",
+        w: "204.38",
+        use: "Электроника.",
+        fact: "Заҳрнок.",
+        danger: "Хеле заҳрнок."
+      },
+      pb: {
+        name: "Сурб (Pb)",
+        w: "207.2",
+        use: "Батареяҳо.",
+        fact: "Вазнин.",
+        danger: "Заҳрнок."
+      },
+      bi: {
+        name: "Висмут (Bi)",
+        w: "208.98",
+        use: "Дориҳо.",
+        fact: "Камзаҳр.",
+        danger: "Нисбатан бехатар."
+      },
+      po: {
+        name: "Полоний (Po)",
+        w: "209",
+        use: "Манбаи гармӣ.",
+        fact: "Аз ҷониби Кюри.",
+        danger: "Хеле радиоактив."
+      },
+      at: {
+        name: "Астат (At)",
+        w: "210",
+        use: "Тадқиқот.",
+        fact: "Нодиртарин.",
+        danger: "Радиоактив."
+      },
+      rn: {
+        name: "Радон (Rn)",
+        w: "222",
+        use: "Тадқиқот.",
+        fact: "Гази радиоактив.",
+        danger: "Хеле хатарнок."
+      },
+      fr: {
+        name: "Франсий (Fr)",
+        w: "223",
+        use: "Тадқиқот.",
+        fact: "Нодиртарин металл.",
+        danger: "Радиоактив."
+      },
+      ra: {
+        name: "Радий (Ra)",
+        w: "226",
+        use: "Таърихан дар тиб.",
+        fact: "Аз ҷониби Кюри.",
+        danger: "Хеле радиоактив."
+      },
+      ac: {
+        name: "Актиний (Ac)",
+        w: "227",
+        use: "Тадқиқот.",
+        fact: "Аввалин актиноид.",
+        danger: "Радиоактив."
+      },
+      th: {
+        name: "Торий (Th)",
+        w: "232.04",
+        use: "Энергияи ядроӣ.",
+        fact: "Алтернатива ба уран.",
+        danger: "Радиоактив."
+      },
+      pa: {
+        name: "Протактиний (Pa)",
+        w: "231.04",
+        use: "Тадқиқот.",
+        fact: "Нодир.",
+        danger: "Радиоактив."
+      },
+      u: {
+        name: "Уран (U)",
+        w: "238.03",
+        use: "Энергияи ядроӣ.",
+        fact: "Вазнинтарини табиӣ.",
+        danger: "Радиоактив."
+      },
+      np: {
+        name: "Нептуний (Np)",
+        w: "237",
+        use: "Тадқиқот.",
+        fact: "Сунъӣ.",
+        danger: "Радиоактив."
+      },
+      pu: {
+        name: "Плутоний (Pu)",
+        w: "244",
+        use: "Реактор ва яроқ.",
+        fact: "Пурқувват.",
+        danger: "Хеле радиоактив."
+      },
+      am: {
+        name: "Америций (Am)",
+        w: "243",
+        use: "Детектори дуд.",
+        fact: "Дар хонаҳо.",
+        danger: "Радиоактив."
+      },
+      cm: {
+        name: "Кюрий (Cm)",
+        w: "247",
+        use: "Тадқиқоти ядроӣ.",
+        fact: "Ба шарафи Кюри.",
+        danger: "Хеле радиоактив."
+      },
+      bk: {
+        name: "Берклий (Bk)",
+        w: "247",
+        use: "Тадқиқот.",
+        fact: "Дар Беркли синтез шуд.",
+        danger: "Радиоактив."
+      },
+      cf: {
+        name: "Калифорний (Cf)",
+        w: "251",
+        use: "Манбаи нейтронҳо.",
+        fact: "Гаронтарин элементҳо.",
+        danger: "Хеле радиоактив."
+      },
+      es: {
+        name: "Эйнштейний (Es)",
+        w: "252",
+        use: "Тадқиқот.",
+        fact: "Ба шарафи Эйнштейн.",
+        danger: "Радиоактив."
+      },
+      fm: {
+        name: "Фермий (Fm)",
+        w: "257",
+        use: "Тадқиқот.",
+        fact: "Ба шарафи Ферми.",
+        danger: "Радиоактив."
+      },
+      md: {
+        name: "Менделевий (Md)",
+        w: "258",
+        use: "Тадқиқот.",
+        fact: "Ба шарафи Менделеев.",
+        danger: "Радиоактив."
+      },
+      no: {
+        name: "Нобелий (No)",
+        w: "259",
+        use: "Тадқиқот.",
+        fact: "Ба шарафи Нобел.",
+        danger: "Радиоактив."
+      },
+      lr: {
+        name: "Лоуренсий (Lr)",
+        w: "266",
+        use: "Тадқиқот.",
+        fact: "Охирин актиноид.",
+        danger: "Радиоактив."
+      },
+      rf: {
+        name: "Резерфордий (Rf)",
+        w: "267",
+        use: "Тадқиқот.",
+        fact: "Ба шарафи Резерфорд.",
+        danger: "Радиоактив."
+      },
+      db: {
+        name: "Дубний (Db)",
+        w: "268",
+        use: "Тадқиқот.",
+        fact: "Ба шарафи Дубна.",
+        danger: "Радиоактив."
+      },
+      sg: {
+        name: "Сиборгий (Sg)",
+        w: "269",
+        use: "Тадқиқот.",
+        fact: "Ба шарафи Сиборг.",
+        danger: "Радиоактив."
+      },
+      bh: {
+        name: "Борий (Bh)",
+        w: "270",
+        use: "Тадқиқот.",
+        fact: "Ба шарафи Нилс Бор.",
+        danger: "Радиоактив."
+      },
+      hs: {
+        name: "Ҳассий (Hs)",
+        w: "277",
+        use: "Тадқиқот.",
+        fact: "Ба шарафи Ҳессен.",
+        danger: "Радиоактив."
+      },
+      mt: {
+        name: "Мейтнерий (Mt)",
+        w: "278",
+        use: "Тадқиқот.",
+        fact: "Ба шарафи Лиза Мейтнер.",
+        danger: "Радиоактив."
+      },
+      ds: {
+        name: "Дармштадтий (Ds)",
+        w: "281",
+        use: "Тадқиқот.",
+        fact: "Ба шарафи Дармштадт.",
+        danger: "Радиоактив."
+      },
+      rg: {
+        name: "Рентгений (Rg)",
+        w: "282",
+        use: "Тадқиқот.",
+        fact: "Ба шарафи Рентген.",
+        danger: "Радиоактив."
+      },
+      cn: {
+        name: "Копернисий (Cn)",
+        w: "285",
+        use: "Тадқиқот.",
+        fact: "Ба шарафи Коперник.",
+        danger: "Радиоактив."
+      },
+      nh: {
+        name: "Нихоний (Nh)",
+        w: "286",
+        use: "Тадқиқот.",
+        fact: "Номи Ҷопон (Nihon).",
+        danger: "Радиоактив."
+      },
+      fl: {
+        name: "Флеровий (Fl)",
+        w: "289",
+        use: "Тадқиқот.",
+        fact: "Ба шарафи Флёров.",
+        danger: "Радиоактив."
+      },
+      mc: {
+        name: "Московий (Mc)",
+        w: "290",
+        use: "Тадқиқот.",
+        fact: "Ба шарафи Москва.",
+        danger: "Радиоактив."
+      },
+      lv: {
+        name: "Ливерморий (Lv)",
+        w: "293",
+        use: "Тадқиқот.",
+        fact: "Ба шарафи Ливермор.",
+        danger: "Радиоактив."
+      },
+      ts: {
+        name: "Теннессин (Ts)",
+        w: "294",
+        use: "Тадқиқот.",
+        fact: "Ба шарафи Теннесси.",
+        danger: "Радиоактив."
+      },
+      og: {
+        name: "Оганесон (Og)",
+        w: "294",
+        use: "Тадқиқот.",
+        fact: "№118 — вазнинтарин. Ба шарафи Оганесян.",
+        danger: "Радиоактив, нимумри хеле кӯтоҳ."
+      }
+    };
+    const POS = {
+      1: [1, 1], 2: [1, 18], 3: [2, 1], 4: [2, 2], 5: [2, 13], 6: [2, 14], 7: [2, 15], 8: [2, 16],
+      9: [2, 17], 10: [2, 18], 11: [3, 1], 12: [3, 2], 13: [3, 13], 14: [3, 14], 15: [3, 15], 16: [3, 16], 17: [3, 17], 18: [3, 18],
+      19: [4, 1], 20: [4, 2], 21: [4, 3], 22: [4, 4], 23: [4, 5], 24: [4, 6], 25: [4, 7], 26: [4, 8], 27: [4, 9], 28: [4, 10], 29: [4, 11],
+      30: [4, 12], 31: [4, 13], 32: [4, 14], 33: [4, 15], 34: [4, 16], 35: [4, 17], 36: [4, 18], 37: [5, 1], 38: [5, 2], 39: [5, 3], 40: [5, 4],
+      41: [5, 5], 42: [5, 6], 43: [5, 7], 44: [5, 8], 45: [5, 9], 46: [5, 10], 47: [5, 11], 48: [5, 12], 49: [5, 13], 50: [5, 14], 51: [5, 15],
+      52: [5, 16], 53: [5, 17], 54: [5, 18], 55: [6, 1], 56: [6, 2], 57: [8, 3], 58: [8, 4], 59: [8, 5], 60: [8, 6], 61: [8, 7], 62: [8, 8],
+      63: [8, 9], 64: [8, 10], 65: [8, 11], 66: [8, 12], 67: [8, 13], 68: [8, 14], 69: [8, 15], 70: [8, 16], 71: [8, 17], 72: [6, 4],
+      73: [6, 5], 74: [6, 6], 75: [6, 7], 76: [6, 8], 77: [6, 9], 78: [6, 10], 79: [6, 11], 80: [6, 12], 81: [6, 13], 82: [6, 14],
+      83: [6, 15], 84: [6, 16], 85: [6, 17], 86: [6, 18], 87: [7, 1], 88: [7, 2], 89: [9, 3], 90: [9, 4], 91: [9, 5], 92: [9, 6], 93: [9, 7],
+      94: [9, 8], 95: [9, 9], 96: [9, 10], 97: [9, 11], 98: [9, 12], 99: [9, 13], 100: [9, 14], 101: [9, 15], 102: [9, 16], 103: [9, 17],
+      104: [7, 4], 105: [7, 5], 106: [7, 6], 107: [7, 7], 108: [7, 8], 109: [7, 9], 110: [7, 10], 111: [7, 11], 112: [7, 12], 113: [7, 13],
+      114: [7, 14], 115: [7, 15], 116: [7, 16], 117: [7, 17], 118: [7, 18]
+    };
+    const pt = document.getElementById('pt');
+    for (let i = 1; i <= 118; i++) { if (!POS[i]) continue; const cell = document.createElement('div'); cell.className = 'cell'; cell.dataset.n = i; cell.style.gridRow = POS[i][0]; cell.style.gridColumn = POS[i][1]; cell.innerHTML = '<span class="n">' + i + '</span><span class="s">' + (SYM[i] || '?') + '</span>'; cell.onclick = function () { sel(i) }; pt.appendChild(cell); }
+    var currentNum = 1;
+    function sel(num) {
+      currentNum = num;
+      const sym = SYM[num] || '?';
+      const key = sym.toLowerCase();
+      let d = DB[key];
+      if (window.i18n && typeof i18n.getElementData === 'function') {
+        var i18 = i18n.getElementData(sym);
+        if (i18) { d = { name: i18.name || (d && d.name) || (sym + ' (#' + num + ')'), w: (d && d.w) || '—', use: i18.use || (d && d.use) || '', fact: i18.fact || (d && d.fact) || '', danger: i18.danger || (d && d.danger) || '' }; }
+      }
+      if (!d) { d = { name: sym + ' (#' + num + ')', w: '—', use: (window.i18n ? i18n.t('noData') : 'Маълумот нест.'), fact: '#' + num + ' · ' + sym, danger: '—' }; }
+      document.getElementById('sel').style.display = 'flex';
+      document.getElementById('selSym').textContent = sym;
+      document.getElementById('selName').textContent = d.name.split('(')[0].trim();
+      document.getElementById('selMeta').textContent = '#' + num + ' · M = ' + d.w;
+      document.getElementById('dSym').textContent = sym;
+      document.getElementById('dName').textContent = d.name.indexOf('(') >= 0 ? d.name : d.name + ' (' + sym + ')';
+      document.getElementById('dUse').textContent = d.use;
+      document.getElementById('dFact').textContent = d.fact;
+      document.getElementById('dDanger').textContent = d.danger;
+      document.getElementById('dWeight').textContent = d.w;
+      document.getElementById('detail').style.display = 'block';
+      const img = document.getElementById('elImg');
+      const fb = document.getElementById('imgFb');
+      const src = IMG[sym] || null;
+      if (src) { fb.style.display = 'none'; img.style.display = 'block'; img.src = src; img.alt = d.name; }
+      else { img.style.display = 'none'; img.removeAttribute('src'); fb.style.display = 'flex'; }
+      document.querySelectorAll('.cell').forEach(function (x) { x.classList.remove('active') });
+      var ac = document.querySelector('.cell[data-n="' + num + '"]');
+      if (ac) ac.classList.add('active');
+    }
+    function doSearch() {
+      var v = document.getElementById('q').value.trim().toLowerCase();
+      if (!v) return;
+      if (!isNaN(v)) { var n = +v; if (n >= 1 && n <= 118) { sel(n); document.getElementById('q').value = ''; return; } }
+      var u = v.toUpperCase(); var idx = SYM.indexOf(u);
+      if (idx > 0) { sel(idx); document.getElementById('q').value = ''; return; }
+      for (var j = 1; j <= 118; j++) {
+        var d = DB[(SYM[j] || '').toLowerCase()];
+        if (d && d.name.toLowerCase().indexOf(v) >= 0) { sel(j); document.getElementById('q').value = ''; return; }
+        if (SYM[j] && SYM[j].toLowerCase() === v) { sel(j); document.getElementById('q').value = ''; return; }
+        if (window.i18n && typeof i18n.getElementData === 'function') {
+          var i18 = i18n.getElementData(SYM[j]);
+          if (i18 && i18.name && i18.name.toLowerCase().indexOf(v) >= 0) { sel(j); document.getElementById('q').value = ''; return; }
+        }
+      }
+      alert(window.i18n ? i18n.t('notFound') : 'Элемент ёфт нашуд');
+    }
+    document.getElementById('q').addEventListener('keypress', function (e) { if (e.key === 'Enter') doSearch(); });
+    document.addEventListener('languageChanged', function () { if (currentNum) sel(currentNum); });
+    setTimeout(function () { sel(1); }, 200);
+  </script>
+  <script src="js/elements-i18n.js"></script>
+  <script src="js/i18n.js"></script>
+  <script>
+    (function () {
+      function wireLangBar() {
+        var bar = document.getElementById('langBar');
+        if (!bar || !window.i18n) return;
+        bar.querySelectorAll('button[data-lang]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            i18n.setLanguage(btn.getAttribute('data-lang'));
+          });
+        });
+        try {
+          var lang = localStorage.getItem('siteLang') || 'tg';
+          bar.querySelectorAll('button[data-lang]').forEach(function (b) {
+            b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+          });
+        } catch (e) { }
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wireLangBar);
+      else wireLangBar();
+      setTimeout(wireLangBar, 50);
+    })();
+  </script>
+  <script src="js/site-runtime.js"></script>
+</body>
+
+</html>

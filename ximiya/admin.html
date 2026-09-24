@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="tj"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin · SCANNERI</title>
+<style>
+:root{--bg:#0c1222;--surf:rgba(20,28,46,.9);--border:rgba(201,162,39,.22);--gold:#c9a227;--gold-l:#e8d48b;--teal:#2dd4bf;--text:#f1f5f9;--muted:#94a3b8;--dim:#64748b;--ok:#34d399;--danger:#f87171;--font:system-ui,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh}
+#login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{width:100%;max-width:400px;background:var(--surf);border:1px solid var(--border);border-radius:16px;padding:32px 24px}
+.card h1{text-align:center;font-size:1.5rem;color:var(--gold-l);margin-bottom:6px}
+.card .sub{text-align:center;color:var(--muted);font-size:.88rem;margin-bottom:16px}
+.lang{display:flex;gap:6px;justify-content:center;margin-bottom:18px}
+.lang button,.lang-bar button{background:transparent;border:1px solid rgba(148,163,184,.2);color:var(--muted);padding:6px 12px;border-radius:8px;font-size:.78rem;font-weight:600;cursor:pointer}
+.lang button.on,.lang-bar button.on{border-color:var(--gold);color:var(--gold-l);background:rgba(201,162,39,.12)}
+label{display:block;font-size:.75rem;font-weight:600;color:var(--gold);margin:12px 0 6px;text-transform:uppercase}
+input,textarea{width:100%;background:rgba(0,0,0,.3);border:1px solid rgba(148,163,184,.15);border-radius:10px;padding:12px;color:var(--text);font-size:.95rem}
+input:focus,textarea:focus{outline:none;border-color:var(--gold)}
+.btn{width:100%;margin-top:14px;padding:12px;border:none;border-radius:10px;background:linear-gradient(135deg,#c9a227,#a8841a);color:#0c1222;font-weight:700;cursor:pointer;font-size:.95rem}
+.btn-g{background:transparent;border:1px solid rgba(148,163,184,.2);color:var(--muted);width:auto;padding:10px 16px}
+.err{display:none;margin-top:12px;padding:10px;background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.35);border-radius:8px;color:var(--danger);font-size:.85rem;text-align:center}
+#panel{display:none}
+.top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid rgba(148,163,184,.1);background:rgba(12,18,34,.95);position:sticky;top:0;z-index:10}
+.tabs{display:flex;flex-wrap:wrap;gap:6px}
+.tabs button{background:transparent;border:1px solid transparent;color:var(--muted);padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600;font-size:.85rem}
+.tabs button.on{border-color:var(--border);color:var(--gold-l);background:rgba(201,162,39,.12)}
+.main{max-width:900px;margin:0 auto;padding:20px 16px 48px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:16px}
+.stat{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:14px}
+.stat .l{font-size:.72rem;color:var(--dim);text-transform:uppercase}
+.stat .v{font-size:1.4rem;font-weight:700;color:var(--gold-l);margin-top:4px}
+.box{background:var(--surf);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:14px}
+.box h3{color:var(--gold);font-size:.95rem;margin-bottom:12px}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid rgba(148,163,184,.1);font-size:.88rem}
+th{color:var(--dim);font-size:.72rem;text-transform:uppercase}
+.on{color:var(--ok);font-weight:600}.off{color:var(--danger);font-weight:600}
+.toggle{width:42px;height:22px;border-radius:11px;border:none;background:rgba(100,116,139,.45);position:relative;cursor:pointer;vertical-align:middle}
+.toggle::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s}
+.toggle.on{background:linear-gradient(135deg,#c9a227,#2dd4bf)}.toggle.on::after{transform:translateX(20px)}
+.row{margin-bottom:12px}.row label{display:block;margin-bottom:6px;color:var(--muted);font-size:.8rem;text-transform:none;font-weight:600}
+textarea{min-height:80px;resize:vertical}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.toast{position:fixed;bottom:20px;right:20px;background:rgba(20,28,46,.96);border:1px solid var(--border);color:var(--gold-l);padding:12px 16px;border-radius:10px;opacity:0;transition:.25s;z-index:50}
+.toast.show{opacity:1}
+.pane{display:none}.pane.on{display:block}
+h2{color:var(--gold-l);font-size:1.3rem;margin-bottom:4px}
+.hint{color:var(--muted);font-size:.85rem;margin-bottom:14px}
+</style></head><body>
+<div id="login">
+<div class="card">
+<div style="text-align:center;font-size:1.6rem;margin-bottom:10px">⚛</div>
+<h1 id="tLoginTitle">Панели идоракунӣ</h1>
+<p class="sub" id="tLoginSub">SCANNERI ELEMENTHO</p>
+<div class="lang"><button type="button" class="on" data-l="tj">Тоҷикӣ</button><button type="button" data-l="ru">Русский</button></div>
+<form id="f">
+<label id="tLogin">Рақам (логин)</label>
+<input id="u" inputmode="numeric" required>
+<label id="tPass">Рамз</label>
+<input id="p" type="password" required>
+<button class="btn" id="tBtn" type="submit">Ворид шудан</button>
+<div class="err" id="err">Рақам ё рамз нодуруст аст</div>
+</form>
+</div>
+</div>
+<div id="panel">
+<div class="top">
+<div class="tabs">
+<button type="button" class="on" data-tab="web" id="tabWeb">Саҳифаҳо</button>
+<button type="button" data-tab="announce" id="tabAnn">Эълонҳо</button>
+<button type="button" data-tab="settings" id="tabSet">Танзимот</button>
+<button type="button" data-tab="traffic" id="tabTr">Трафик</button>
+</div>
+<div style="display:flex;gap:8px;align-items:center">
+<div class="lang-bar"><button type="button" class="on" data-l="tj">TJ</button><button type="button" data-l="ru">RU</button></div>
+<button class="btn btn-g" id="logout" type="button">Баромад</button>
+</div>
+</div>
+<div class="main">
+<section class="pane on" id="pane-web">
+<h2 id="hWeb">Идоракунии саҳифаҳо</h2>
+<p class="hint" id="hintWeb">Фаъол / хомӯш — фавран кор мекунад</p>
+<div class="box"><h3 id="hPages">Саҳифаҳо</h3><table><thead><tr><th id="thPage">Саҳифа</th><th id="thSt">Ҳолат</th><th></th></tr></thead><tbody id="pagesBody"></tbody></table></div>
+<div class="box"><h3 id="hMaint">Режими нигоҳдорӣ</h3>
+<label style="display:flex;align-items:center;gap:12px;cursor:pointer;text-transform:none;color:var(--text)">
+<button type="button" class="toggle" id="maint"></button><span id="maintLab">Хомӯш</span>
+</label></div>
+</section>
+<section class="pane" id="pane-announce">
+<h2 id="hAnn">Эълонҳо</h2>
+<p class="hint" id="hintAnn">Дар болои саҳифаҳои асосӣ нишон дода мешавад</p>
+<div class="box">
+<div class="row"><label id="lAnn">Матн</label><textarea id="annText"></textarea></div>
+<label style="display:flex;align-items:center;gap:10px;cursor:pointer;text-transform:none;color:var(--text)">
+<button type="button" class="toggle" id="annOn"></button><span id="lAnnOn">Нишон додан</span>
+</label>
+<div class="actions"><button class="btn" style="width:auto;padding:10px 18px" type="button" id="saveAnn">Сабт</button>
+<button class="btn btn-g" type="button" id="clearAnn">Пок</button></div>
+</div>
+</section>
+<section class="pane" id="pane-settings">
+<h2 id="hSet">Танзимот</h2>
+<div class="box">
+<div class="row"><label id="lTitle">Унвон</label><input id="setTitle"></div>
+<div class="row"><label id="lDesc">Тавсиф</label><textarea id="setDesc"></textarea></div>
+<button class="btn" style="width:auto;padding:10px 18px" type="button" id="saveSet">Сабт</button>
+</div>
+</section>
+<section class="pane" id="pane-traffic">
+<h2 id="hTr">Трафик (демо)</h2>
+<div class="stats">
+<div class="stat"><div class="l" id="sTotal">Ҳамагӣ</div><div class="v">12 480</div></div>
+<div class="stat"><div class="l" id="sToday">Имрӯз</div><div class="v">342</div></div>
+<div class="stat"><div class="l" id="sWeek">Ҳафта</div><div class="v">2 156</div></div>
+</div>
+</section>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+(function(){
+var K={s:'se_admin_session',p:'se_pages_status',a:'se_announce',set:'se_site_settings',lang:'se_admin_lang'};
+var PAGES=[{id:'index.html',tj:'Асосӣ',ru:'Главная'},{id:'photo.html',tj:'Ҷадвали Менделеев',ru:'Таблица Менделеева'},{id:'photo2.html',tj:'Маълумот',ru:'Информация'},{id:'photo3.html',tj:'Калькулятор',ru:'Калькулятор'},{id:'photo4.html',tj:'Тестҳо',ru:'Тесты'}];
+var lang=localStorage.getItem(K.lang)||'tj';
+var TR={
+tj:{loginTitle:'Панели идоракунӣ',loginSub:'SCANNERI ELEMENTHO · Дастрасии махфӣ',login:'Рақам (логин)',pass:'Рамз',btn:'Ворид шудан',err:'Рақам ё рамз нодуруст аст',logout:'Баромад',web:'Саҳифаҳо',ann:'Эълонҳо',set:'Танзимот',tr:'Трафик',hWeb:'Идоракунии саҳифаҳо',hintWeb:'Фаъол / хомӯш — фавран кор мекунад',hPages:'Саҳифаҳо',thPage:'Саҳифа',thSt:'Ҳолат',on:'Фаъол',off:'Хомӯш',hMaint:'Режими нигоҳдорӣ',hAnn:'Эълонҳо',hintAnn:'Дар болои саҳифаҳои асосӣ нишон дода мешавад',lAnn:'Матн',lAnnOn:'Нишон додан',save:'Сабт',clear:'Пок',hSet:'Танзимот',lTitle:'Унвон',lDesc:'Тавсиф',hTr:'Трафик (демо)',sTotal:'Ҳамагӣ',sToday:'Имрӯз',sWeek:'Ҳафта',ok:'Сабт шуд',cleared:'Пок шуд',pageOn:'Саҳифа фаъол',pageOff:'Саҳифа хомӯш',maintOn:'Нигоҳдорӣ фаъол',maintOff:'Нигоҳдорӣ хомӯш'},
+ru:{loginTitle:'Панель управления',loginSub:'SCANNERI ELEMENTHO · Закрытый доступ',login:'Номер (логин)',pass:'Пароль',btn:'Войти',err:'Неверный логин или пароль',logout:'Выйти',web:'Страницы',ann:'Объявления',set:'Настройки',tr:'Трафик',hWeb:'Управление страницами',hintWeb:'Вкл / выкл — действует сразу',hPages:'Страницы',thPage:'Страница',thSt:'Статус',on:'Вкл',off:'Выкл',hMaint:'Режим обслуживания',hAnn:'Объявления',hintAnn:'Показывается сверху на основных страницах',lAnn:'Текст',lAnnOn:'Показывать',save:'Сохранить',clear:'Очистить',hSet:'Настройки',lTitle:'Название',lDesc:'Описание',hTr:'Трафик (демо)',sTotal:'Всего',sToday:'Сегодня',sWeek:'Неделя',ok:'Сохранено',cleared:'Очищено',pageOn:'Страница включена',pageOff:'Страница отключена',maintOn:'Обслуживание включено',maintOff:'Обслуживание выключено'}
+};
+function t(k){return (TR[lang]&&TR[lang][k])||TR.tj[k]||k}
+function applyLang(){
+  var m={tLoginTitle:'loginTitle',tLoginSub:'loginSub',tLogin:'login',tPass:'pass',tBtn:'btn',err:'err',logout:'logout',tabWeb:'web',tabAnn:'ann',tabSet:'set',tabTr:'tr',hWeb:'hWeb',hintWeb:'hintWeb',hPages:'hPages',thPage:'thPage',thSt:'thSt',hMaint:'hMaint',hAnn:'hAnn',hintAnn:'hintAnn',lAnn:'lAnn',lAnnOn:'lAnnOn',saveAnn:'save',clearAnn:'clear',hSet:'hSet',lTitle:'lTitle',lDesc:'lDesc',saveSet:'save',hTr:'hTr',sTotal:'sTotal',sToday:'sToday',sWeek:'sWeek'};
+  Object.keys(m).forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=t(m[id]);});
+  document.querySelectorAll('[data-l]').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-l')===lang);});
+  renderPages();renderMaint();
+}
+document.querySelectorAll('[data-l]').forEach(function(b){b.addEventListener('click',function(){lang=b.getAttribute('data-l');localStorage.setItem(K.lang,lang);localStorage.setItem('lang',lang);applyLang();});});
+function load(k,fb){try{var r=localStorage.getItem(k);return r?JSON.parse(r):fb;}catch(e){return fb;}}
+function save(k,v){localStorage.setItem(k,JSON.stringify(v));}
+var CU=[48,48,48,57,57,56,52,53,56],CP=[48,51,48,52,50,48,48,57];
+function okCred(u,p){if(u.length!==CU.length||p.length!==CP.length)return false;for(var i=0;i<CU.length;i++)if(u.charCodeAt(i)!==CU[i])return false;for(var j=0;j<CP.length;j++)if(p.charCodeAt(j)!==CP[j])return false;return true;}
+function toast(m){var e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(function(){e.classList.remove('show');},2000);}
+function showLogin(){document.getElementById('login').style.display='flex';document.getElementById('panel').style.display='none';}
+function showPanel(){document.getElementById('login').style.display='none';document.getElementById('panel').style.display='block';renderPages();renderMaint();renderAnn();renderSet();}
+document.getElementById('f').onsubmit=function(e){e.preventDefault();if(okCred(document.getElementById('u').value.trim(),document.getElementById('p').value)){localStorage.setItem(K.s,'1');document.getElementById('err').style.display='none';showPanel();}else document.getElementById('err').style.display='block';};
+document.getElementById('logout').onclick=function(){localStorage.removeItem(K.s);showLogin();};
+document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){document.querySelectorAll('.tabs button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');document.querySelectorAll('.pane').forEach(function(p){p.classList.remove('on');});document.getElementById('pane-'+b.getAttribute('data-tab')).classList.add('on');};});
+function defPages(){var o={};PAGES.forEach(function(p){o[p.id]=true;});return o;}
+function getPages(){var st=load(K.p,null);if(!st)return defPages();PAGES.forEach(function(p){if(typeof st[p.id]!=='boolean')st[p.id]=true;});return st;}
+function renderPages(){var st=getPages(),tb=document.getElementById('pagesBody');tb.innerHTML='';PAGES.forEach(function(p){var on=st[p.id]!==false,tr=document.createElement('tr');tr.innerHTML='<td>'+(lang==='ru'?p.ru:p.tj)+' <span style="color:var(--dim);font-size:.78rem">('+p.id+')</span></td><td class="'+(on?'on':'off')+'">'+(on?t('on'):t('off'))+'</td><td><button type="button" class="toggle'+(on?' on':'')+'" data-id="'+p.id+'"></button></td>';tb.appendChild(tr);});tb.querySelectorAll('.toggle').forEach(function(btn){btn.onclick=function(){var st2=getPages();st2[btn.getAttribute('data-id')]=!(st2[btn.getAttribute('data-id')]!==false);save(K.p,st2);localStorage.setItem('pageStatus',JSON.stringify(st2));toast(st2[btn.getAttribute('data-id')]?t('pageOn'):t('pageOff'));renderPages();};});}
+function renderMaint(){var s=load(K.set,{maintenance:false});var on=!!s.maintenance||localStorage.getItem('maintenanceMode')==='1';var b=document.getElementById('maint');if(on)b.classList.add('on');else b.classList.remove('on');document.getElementById('maintLab').textContent=on?t('on'):t('off');}
+document.getElementById('maint').onclick=function(){var s=load(K.set,{title:'SCANNERI ELEMENTHO',desc:'',maintenance:false});s.maintenance=!s.maintenance;save(K.set,s);localStorage.setItem('maintenanceMode',s.maintenance?'1':'0');renderMaint();toast(s.maintenance?t('maintOn'):t('maintOff'));};
+function renderAnn(){var a=load(K.a,{text:'',enabled:false});document.getElementById('annText').value=a.text||'';var tg=document.getElementById('annOn');if(a.enabled)tg.classList.add('on');else tg.classList.remove('on');}
+document.getElementById('annOn').onclick=function(){this.classList.toggle('on');};
+document.getElementById('saveAnn').onclick=function(){var text=document.getElementById('annText').value.trim();var en=document.getElementById('annOn').classList.contains('on');save(K.a,{text:text,enabled:en&&!!text});toast(t('ok'));};
+document.getElementById('clearAnn').onclick=function(){document.getElementById('annText').value='';document.getElementById('annOn').classList.remove('on');save(K.a,{text:'',enabled:false});toast(t('cleared'));};
+function renderSet(){var s=load(K.set,{title:'SCANNERI ELEMENTHO',desc:'',maintenance:false});document.getElementById('setTitle').value=s.title||'';document.getElementById('setDesc').value=s.desc||'';}
+document.getElementById('saveSet').onclick=function(){var s=load(K.set,{maintenance:false});s.title=document.getElementById('setTitle').value.trim()||'SCANNERI ELEMENTHO';s.desc=document.getElementById('setDesc').value.trim();save(K.set,s);toast(t('ok'));};
+applyLang();
+if(localStorage.getItem(K.s)==='1')showPanel();else showLogin();
+})();
+</script>
+</body></html>

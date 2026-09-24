@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="tg">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Платформаи омодагӣ ба ММТ — Кластери 5">
+    <title id="page-title"></title>
+    <style>
+        :root {
+            --bg: #0c1222;
+            --surface: rgba(20, 28, 46, .86);
+            --surface-strong: rgba(25, 35, 57, .96);
+            --gold: #c9a227;
+            --gold-light: #e8d48b;
+            --teal: #2dd4bf;
+            --text: #f1f5f9;
+            --muted: #a7b1c2;
+            --border: rgba(201, 162, 39, .22);
+            --radius: 14px;
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-width: 320px;
+            margin: 0;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 8% 0%, rgba(45, 212, 191, .1), transparent 28rem),
+                radial-gradient(circle at 92% 38%, rgba(201, 162, 39, .1), transparent 30rem),
+                var(--bg);
+            line-height: 1.55;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 1px solid rgba(148, 163, 184, .14);
+            background: rgba(12, 18, 34, .9);
+            backdrop-filter: blur(16px);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            max-width: 1180px;
+            margin: auto;
+            padding: 13px 24px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gold-light);
+            font-weight: 800;
+            letter-spacing: .04em;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .brand-mark {
+            display: grid;
+            place-items: center;
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--gold);
+            border-radius: 9px;
+            color: var(--bg);
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            font-size: .83rem;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 5px;
+        }
+
+        .nav-links a {
+            padding: 7px 11px;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            color: var(--muted);
+            font-size: .92rem;
+            text-decoration: none;
+            transition: color .2s ease, border-color .2s ease, background .2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible {
+            border-color: var(--border);
+            color: var(--gold-light);
+            background: rgba(201, 162, 39, .08);
+            outline: none;
+        }
+
+        .nav-links a.active {
+            color: var(--text);
+            background: rgba(45, 212, 191, .1);
+        }
+
+        .container {
+            max-width: 1180px;
+            margin: auto;
+            padding: 0 24px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.25fr) minmax(260px, .75fr);
+            align-items: center;
+            gap: 60px;
+            min-height: 530px;
+            padding-top: 76px;
+            padding-bottom: 78px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+            color: var(--teal);
+            font-size: .78rem;
+            font-weight: 800;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            width: 28px;
+            height: 1px;
+            background: var(--teal);
+            content: "";
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin-top: 0;
+        }
+
+        h1 {
+            max-width: 720px;
+            margin-bottom: 18px;
+            color: var(--text);
+            font-size: clamp(2.6rem, 6vw, 5.1rem);
+            line-height: 1.02;
+            letter-spacing: -.04em;
+        }
+
+        h1 span {
+            color: var(--gold-light);
+        }
+
+        .hero-lead {
+            max-width: 610px;
+            margin-bottom: 14px;
+            color: var(--gold-light);
+            font-size: clamp(1.12rem, 2vw, 1.45rem);
+            font-weight: 650;
+        }
+
+        .hero-copy {
+            max-width: 590px;
+            margin-bottom: 28px;
+            color: var(--muted);
+            font-size: 1.03rem;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 46px;
+            padding: 0 21px;
+            border: 1px solid var(--gold);
+            border-radius: 10px;
+            color: #17130a;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            font-weight: 800;
+            text-decoration: none;
+            transition: transform .2s ease, filter .2s ease;
+        }
+
+        .button:hover,
+        .button:focus-visible {
+            filter: brightness(1.08);
+            transform: translateY(-2px);
+            outline: none;
+        }
+
+        .hero-panel {
+            position: relative;
+            padding: 28px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: linear-gradient(145deg, rgba(30, 41, 59, .7), rgba(20, 28, 46, .5));
+            box-shadow: 0 22px 50px rgba(0, 0, 0, .2);
+        }
+
+        .hero-panel::after {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--teal);
+            box-shadow: 0 0 18px var(--teal);
+            content: "";
+        }
+
+        .panel-kicker {
+            margin-bottom: 22px;
+            color: var(--muted);
+            font-size: .84rem;
+        }
+
+        .panel-stat {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .panel-stat strong {
+            color: var(--gold-light);
+            font-size: 3.7rem;
+            line-height: 1;
+        }
+
+        .panel-stat span {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .panel-list {
+            display: grid;
+            gap: 12px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .panel-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--muted);
+        }
+
+        .panel-list li::before {
+            color: var(--teal);
+            content: "✓";
+            font-weight: 800;
+        }
+
+        section {
+            padding: 68px 0;
+        }
+
+        .section-heading {
+            max-width: 650px;
+            margin-bottom: 28px;
+        }
+
+        .section-heading h2 {
+            margin-bottom: 8px;
+            color: var(--gold-light);
+            font-size: clamp(1.7rem, 3vw, 2.3rem);
+            line-height: 1.15;
+        }
+
+        .section-heading p {
+            margin-bottom: 0;
+            color: var(--muted);
+        }
+
+        .why-grid,
+        .subjects-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .why-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .subjects-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .card {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--surface);
+        }
+
+        .why-card {
+            padding: 22px;
+        }
+
+        .why-icon,
+        .subject-icon {
+            color: var(--teal);
+            font-size: 1.75rem;
+        }
+
+        .why-card h3 {
+            margin: 14px 0 7px;
+            font-size: 1.08rem;
+        }
+
+        .why-card p {
+            margin-bottom: 0;
+            color: var(--muted);
+            font-size: .93rem;
+        }
+
+        .subject-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 280px;
+            padding: 22px;
+            background: linear-gradient(165deg, var(--surface-strong), rgba(20, 28, 46, .76));
+            transition: border-color .2s ease, transform .2s ease;
+        }
+
+        .subject-card:hover {
+            border-color: rgba(201, 162, 39, .55);
+            transform: translateY(-4px);
+        }
+
+        .subject-card h3 {
+            margin: 15px 0 8px;
+            color: var(--gold-light);
+            font-size: 1.24rem;
+        }
+
+        .subject-card p {
+            flex: 1;
+            margin-bottom: 22px;
+            color: var(--muted);
+            font-size: .94rem;
+        }
+
+        .subject-card .button {
+            align-self: flex-start;
+            min-height: 40px;
+            padding: 0 15px;
+            font-size: .91rem;
+        }
+
+        .cluster-box {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 34px;
+            align-items: center;
+            padding: 30px;
+            border: 1px solid rgba(45, 212, 191, .24);
+            border-radius: var(--radius);
+            background: rgba(20, 28, 46, .7);
+        }
+
+        .cluster-box h2 {
+            margin-bottom: 0;
+            color: var(--gold-light);
+            font-size: clamp(1.65rem, 3vw, 2.2rem);
+        }
+
+        .cluster-box p {
+            margin-bottom: 0;
+            color: var(--muted);
+        }
+
+        .cluster-box strong {
+            color: var(--text);
+        }
+
+        footer {
+            margin-top: 24px;
+            border-top: 1px solid rgba(148, 163, 184, .14);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 25px 24px;
+            color: var(--muted);
+            font-size: .9rem;
+        }
+
+        .footer-inner strong {
+            color: var(--gold-light);
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                min-height: auto;
+                padding-top: 64px;
+            }
+
+            .hero-panel {
+                max-width: 560px;
+            }
+
+            .subjects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cluster-box {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 10px;
+                padding: 12px 18px;
+            }
+
+            .nav-links {
+                justify-content: flex-start;
+                width: 100%;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 2px;
+            }
+
+            .nav-links a {
+                flex: 0 0 auto;
+            }
+
+            .container {
+                padding: 0 18px;
+            }
+
+            .hero {
+                padding-top: 48px;
+                padding-bottom: 55px;
+            }
+
+            h1 {
+                font-size: clamp(2.5rem, 13vw, 4rem);
+            }
+
+            section {
+                padding: 52px 0;
+            }
+
+            .why-grid,
+            .subjects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .subject-card {
+                min-height: 235px;
+            }
+
+            .footer-inner {
+                align-items: flex-start;
+                flex-direction: column;
+                padding-right: 18px;
+                padding-left: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body data-site-name="SCANNERI · Кластери 5">
+    <header class="site-header">
+        <nav class="nav" aria-label="Навигацияи асосӣ">
+            <a class="brand" href="index.html"><span class="brand-mark">5</span><span class="site-name"></span></a>
+            <div class="nav-links">
+                <a class="active" href="index.html" aria-current="page">Асосӣ</a>
+                <a href="ximiya/index.html">Химия</a>
+                <a href="biology/index.html">Биология</a>
+                <a href="physics/index.html">Физика</a>
+                <a href="tajik/index.html">Тоҷикӣ</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero container" aria-labelledby="hero-title">
+            <div>
+                <p class="eyebrow">Платформаи ММТ</p>
+                <h1 id="hero-title"><span class="site-name"></span></h1>
+                <p class="hero-lead">Омодагӣ ба ММТ барои довталабони тиб, биология ва варзиш</p>
+                <p class="hero-copy">Ҳамаи фанҳои кластери 5 дар як ҷо: тестҳо, маводи омӯзишӣ ва калкуляторҳо барои
+                    машқи ҳаррӯза.</p>
+                <a class="button" href="#fanho">Интихоби фан <span aria-hidden="true">→</span></a>
+            </div>
+            <aside class="hero-panel" aria-label="Хусусиятҳои платформа">
+                <p class="panel-kicker">Кластери 5 · ММТ</p>
+                <div class="panel-stat"><strong>4</strong><span>фан дар як ҷо</span></div>
+                <ul class="panel-list">
+                    <li>Машқи мунтазам ва фаҳмо</li>
+                    <li>Тестҳо барои санҷиши дониш</li>
+                    <li>Асбобҳои ёрирасон барои ҳисоб</li>
+                </ul>
+            </aside>
+        </section>
+
+        <section class="container" aria-labelledby="why-title">
+            <div class="section-heading">
+                <h2 id="why-title">Чаро ин платформа?</h2>
+                <p>Барои омодагии ҷамъу муназзам ба ҳар рӯзи омӯзиш.</p>
+            </div>
+            <div class="why-grid">
+                <article class="card why-card">
+                    <div class="why-icon" aria-hidden="true">◈</div>
+                    <h3>4 фан дар як ҷо</h3>
+                    <p>Химия, биология, физика ва забони тоҷикӣ ҳамеша дастрасанд.</p>
+                </article>
+                <article class="card why-card">
+                    <div class="why-icon" aria-hidden="true">◷</div>
+                    <h3>Тестҳо бо таймер</h3>
+                    <p>Суръат ва диққати худро бо машқҳои ба ММТ монанд санҷед.</p>
+                </article>
+                <article class="card why-card">
+                    <div class="why-icon" aria-hidden="true">⌁</div>
+                    <h3>Асбобҳои муфид</h3>
+                    <p>Калкуляторҳои химия ва физика, инчунин машқҳои забонӣ.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="container" id="fanho" aria-labelledby="subjects-title">
+            <div class="section-heading">
+                <h2 id="subjects-title">Фанҳои кластери 5</h2>
+                <p>Фани лозимаро интихоб кунед ва омӯзишро оғоз намоед.</p>
+            </div>
+            <div class="subjects-grid">
+                <article class="card subject-card">
+                    <div class="subject-icon" aria-hidden="true">⚗</div>
+                    <h3>Химия</h3>
+                    <p>Ҷадвали Менделеев, калкулятор, тестҳо ва китобҳо.</p><a class="button"
+                        href="ximiya/photo.html">Кушодан <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="card subject-card">
+                    <div class="subject-icon" aria-hidden="true">♧</div>
+                    <h3>Биология</h3>
+                    <p>Мавзӯъҳо, тестҳо ва маводи муҳим барои такрор.</p><a class="button"
+                        href="biology/index.html">Кушодан <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="card subject-card">
+                    <div class="subject-icon" aria-hidden="true">⌁</div>
+                    <h3>Физика</h3>
+                    <p>Формулаҳо, калкулятор ва тестҳо барои машқи ҳисоб.</p><a class="button"
+                        href="physics/index.html">Кушодан <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="card subject-card">
+                    <div class="subject-icon" aria-hidden="true">А</div>
+                    <h3>Забони тоҷикӣ</h3>
+                    <p>Грамматика, имло, машқҳо ва тестҳо барои санҷиш.</p><a class="button"
+                        href="tajik/index.html">Кушодан <span aria-hidden="true">→</span></a>
+                </article>
+            </div>
+        </section>
+
+        <section class="container" aria-labelledby="cluster-title">
+            <div class="cluster-box">
+                <h2 id="cluster-title">Кластери 5 чист?</h2>
+                <p><strong>Кластери 5</strong> — самти тиб, биология ва варзиш дар ММТ.<br>Фанҳо: химия, биология,
+                    физика ва забони тоҷикӣ.<br>Ин сайт барои машқи ҳамин фанҳо ва омодагии беҳтар ба имтиҳон аст.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner container">
+            <strong>© <span class="site-name"></span></strong>
+            <span>Иҷрокунанда: Ҳасанов.О</span>
+        </div>
+    </footer>
+    <script>
+        const siteName = document.body.dataset.siteName;
+        document.querySelectorAll('.site-name').forEach((element) => { element.textContent = siteName; });
+        document.title = siteName;
+    </script>
+</body>
+
+</html>

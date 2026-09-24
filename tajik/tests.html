@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="tj">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тести ММТ | Забони тоҷикӣ</title>
+    <link rel="stylesheet" href="tajik.css">
+</head>
+
+<body>
+    <nav class="site-nav" aria-label="Навигатсия"><a class="brand" href="index.html"><span class="brand-mark">S</span>
+            SCANNERI</a>
+        <div class="nav-links"><a href="../index.html">Асосӣ</a><a href="../ximiya/photo.html">Химия</a><a
+                href="../biology/index.html">Биология</a><a href="../physics/index.html">Физика</a><a class="active"
+                href="index.html">Тоҷикӣ</a></div>
+    </nav>
+    <main class="page-shell test-shell">
+        <header class="section-heading">
+            <p class="eyebrow">САНҶИШИ ММТ</p>
+            <h1>Тести забони тоҷикӣ</h1>
+            <p>42 саволи омехта барои 25 дақиқа. Барои гузаштан ҷавобро интихоб кунед.</p>
+        </header>
+        <section id="test-start" class="start-panel">
+            <h2>Омодаед?</h2>
+            <p>Саволҳо аз грамматика, имло, луғат, адабиёт ва фаҳмиши матн мебошанд.</p><button id="start-button"
+                class="primary-button" type="button">Оғози тест</button>
+        </section>
+        <section id="test-area" class="hidden">
+            <div class="test-meta"><span id="progress-text" class="progress-text">Савол 1 аз 42</span><span id="timer"
+                    class="timer">25:00</span></div>
+            <div class="question-panel">
+                <p id="question-number" class="question-number"></p>
+                <h2 id="question-text" class="question-text"></h2>
+                <div id="test-options" class="options"></div>
+                <p id="test-message" class="test-message" aria-live="polite"></p>
+                <div class="test-actions"><button id="next-button-test" class="primary-button" type="button">Навбатӣ
+                        →</button></div>
+            </div>
+        </section>
+        <section id="test-result" class="result-panel hidden"></section><a class="back-link" href="index.html">← Ба
+            саҳифаи забони тоҷикӣ</a>
+    </main>
+    <script src="tests.js"></script>
+</body>
+
+</html>

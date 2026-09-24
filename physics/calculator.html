@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="tj">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калкулятори физика | SCANNERI</title>
+    <link rel="stylesheet" href="physics.css">
+</head>
+
+<body>
+    <nav class="site-nav" aria-label="Навигатсия"><a class="brand" href="index.html"><span class="brand-mark">S</span>
+            SCANNERI</a>
+        <div class="nav-links"><a href="../index.html">Асосӣ</a><a href="../ximiya/photo.html">Химия</a><a
+                href="../biology/index.html">Биология</a><a class="active" href="index.html">Физика</a><a
+                href="#">Тоҷикӣ</a></div>
+    </nav>
+    <main class="page-shell">
+        <header class="section-heading">
+            <p class="eyebrow">ФИЗИКА · ҲИСОБ</p>
+            <h1>Калкулятори формулаҳо</h1>
+            <p>Қиматҳоро дар воҳидҳои мувофиқ ворид кунед ва натиҷаро фавран гиред.</p>
+        </header>
+        <section class="calc-grid">
+            <article class="calc-card">
+                <h2>Кинематика</h2>
+                <p class="calc-formula">v = s / t · s = vt · a = (v − v₀) / t</p>
+                <div class="calc-row">
+                    <div class="calc-field"><label for="speedS">Масофа s (м)</label><input id="speedS" type="number"
+                            step="any"></div>
+                    <div class="calc-field"><label for="speedT">Вақт t (с)</label><input id="speedT" type="number"
+                            step="any"></div>
+                </div>
+                <div class="calc-row">
+                    <div class="calc-field"><label for="speedV">Суръат v (м/с)</label><input id="speedV" type="number"
+                            step="any"></div>
+                    <div class="calc-field"><label for="speedV0">Суръати аввал v₀ (м/с)</label><input id="speedV0"
+                            type="number" step="any"></div>
+                </div><button class="primary-button" type="button" onclick="calcSpeed()">Ҳисоб кун</button>
+                <p class="calc-result" id="speedResult"></p>
+            </article>
+            <article class="calc-card">
+                <h2>Динамика</h2>
+                <p class="calc-formula">F = ma · m = F/a · a = F/m</p>
+                <div class="calc-row">
+                    <div class="calc-field"><label for="forceM">Масса m (кг)</label><input id="forceM" type="number"
+                            step="any"></div>
+                    <div class="calc-field"><label for="forceA">Шитоб a (м/с²)</label><input id="forceA" type="number"
+                            step="any"></div>
+                </div>
+                <div class="calc-field"><label for="forceF">Қувва F (Н)</label><input id="forceF" type="number"
+                        step="any"></div><button class="primary-button" type="button" onclick="calcForce()">Ҳисоб
+                    кун</button>
+                <p class="calc-result" id="forceResult"></p>
+            </article>
+            <article class="calc-card">
+                <h2>Фишор ва зичӣ</h2>
+                <p class="calc-formula">p = F/S · ρ = m/V</p>
+                <div class="calc-row">
+                    <div class="calc-field"><label for="pressureF">Қувва F (Н)</label><input id="pressureF"
+                            type="number" step="any"></div>
+                    <div class="calc-field"><label for="pressureS">Масоҳат S (м²)</label><input id="pressureS"
+                            type="number" step="any"></div>
+                </div>
+                <div class="calc-row">
+                    <div class="calc-field"><label for="densityM">Масса m (кг)</label><input id="densityM" type="number"
+                            step="any"></div>
+                    <div class="calc-field"><label for="densityV">Ҳаҷм V (м³)</label><input id="densityV" type="number"
+                            step="any"></div>
+                </div><button class="primary-button" type="button" onclick="calcPressureDensity()">Ҳисоб кун</button>
+                <p class="calc-result" id="pressureResult"></p>
+                <p class="calc-result" id="densityResult"></p>
+            </article>
+            <article class="calc-card">
+                <h2>Кор ва энергия</h2>
+                <p class="calc-formula">A = Fs · Eк = mv² / 2</p>
+                <div class="calc-row">
+                    <div class="calc-field"><label for="workF">Қувва F (Н)</label><input id="workF" type="number"
+                            step="any"></div>
+                    <div class="calc-field"><label for="workS">Масофа s (м)</label><input id="workS" type="number"
+                            step="any"></div>
+                </div>
+                <div class="calc-row">
+                    <div class="calc-field"><label for="energyM">Масса m (кг)</label><input id="energyM" type="number"
+                            step="any"></div>
+                    <div class="calc-field"><label for="energyV">Суръат v (м/с)</label><input id="energyV" type="number"
+                            step="any"></div>
+                </div><button class="primary-button" type="button" onclick="calcWorkEnergy()">Ҳисоб кун</button>
+                <p class="calc-result" id="workResult"></p>
+                <p class="calc-result" id="energyResult"></p>
+            </article>
+            <article class="calc-card">
+                <h2>Барқ ва қонуни Ом</h2>
+                <p class="calc-formula">U = IR · P = UI</p>
+                <div class="calc-row">
+                    <div class="calc-field"><label for="ohmU">Шиддат U (В)</label><input id="ohmU" type="number"
+                            step="any"></div>
+                    <div class="calc-field"><label for="ohmI">Ҷараён I (А)</label><input id="ohmI" type="number"
+                            step="any"></div>
+                </div>
+                <div class="calc-row">
+                    <div class="calc-field"><label for="ohmR">Муқовимат R (Ом)</label><input id="ohmR" type="number"
+                            step="any"></div>
+                    <div class="calc-field"><label for="ohmP">Қувва P (Вт)</label><input id="ohmP" type="number"
+                            step="any"></div>
+                </div><button class="primary-button" type="button" onclick="calcOhm()">Ҳисоб кун</button>
+                <p class="calc-result" id="ohmResult"></p>
+            </article>
+        </section><a class="back-link" href="index.html">← Ба саҳифаи физика</a>
+    </main>
+    <script src="calculator.js"></script>
+</body>
+
+</html>

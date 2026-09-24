@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="tj">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Тестҳои химиявӣ — 25 савол бо таймер">
+    <title data-i18n="testTitle">Тест аз химия</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #070b14;
+            --surface: rgba(15, 23, 42, 0.72);
+            --border: rgba(34, 211, 238, 0.15);
+            --accent: #22d3ee;
+            --accent-glow: rgba(34, 211, 238, 0.25);
+            --secondary: #818cf8;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --radius: 16px;
+            --font: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font);
+            background: var(--bg-deep);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+        .bg-layer {
+            position: fixed; inset: 0; z-index: -2;
+            background:
+                radial-gradient(ellipse 80% 50% at 25% 25%, rgba(34,211,238,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 75% 75%, rgba(129,140,248,0.05) 0%, transparent 50%),
+                var(--bg-deep);
+        }
+        .bg-grid {
+            position: fixed; inset: 0; z-index: -1;
+            background-image:
+                linear-gradient(rgba(34,211,238,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34,211,238,0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 15%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 15%, transparent 70%);
+        }
+        .top-nav {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(7,11,20,0.85);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 20px;
+        }
+        .top-nav-inner {
+            max-width: 900px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+        }
+        .nav-brand {
+            display: flex; align-items: center; gap: 10px;
+            text-decoration: none; color: var(--text); font-weight: 700; font-size: 1rem;
+        }
+        .nav-brand .mark {
+            width: 36px; height: 36px; border-radius: 10px;
+            background: linear-gradient(135deg, rgba(34,211,238,0.25), rgba(129,140,248,0.2));
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+        }
+        .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+        .nav-links a {
+            color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 500;
+            padding: 8px 14px; border-radius: 999px; transition: all 0.2s; border: 1px solid transparent;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent); background: rgba(34,211,238,0.1); border-color: var(--border);
+        }
+        .menu-toggle {
+            display: none; background: none; border: 1px solid var(--border);
+            color: var(--text); padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 1.1rem;
+        }
+        .test-wrapper {
+            width: 100%; max-width: 720px; margin: 0 auto;
+            padding: 28px 20px 60px;
+        }
+        .test-header { text-align: center; margin-bottom: 28px; }
+        .test-header h2 {
+            font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800;
+            background: linear-gradient(135deg, #e2e8f0, #22d3ee 70%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            margin-bottom: 6px;
+        }
+        .sub { color: var(--text-muted); font-size: 0.95rem; }
+        .timer-block {
+            font-size: 2.4rem; font-weight: 800; text-align: center;
+            background: var(--surface); backdrop-filter: blur(12px);
+            padding: 16px; border-radius: 14px;
+            border: 1px solid var(--border); margin-bottom: 20px;
+            color: var(--accent); letter-spacing: 0.05em;
+            box-shadow: 0 0 30px rgba(34,211,238,0.1);
+        }
+        .question-panel {
+            background: var(--surface); backdrop-filter: blur(12px);
+            border-radius: 18px; padding: 28px;
+            border: 1px solid var(--border); margin-bottom: 18px;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .q-counter {
+            font-size: 0.9rem; font-weight: 600; color: var(--accent);
+            margin-bottom: 14px; letter-spacing: 0.04em; text-transform: uppercase;
+        }
+        .q-text {
+            font-size: 1.25rem; font-weight: 600; margin-bottom: 24px; line-height: 1.4;
+        }
+        .options { display: flex; flex-direction: column; gap: 10px; }
+        .option-item {
+            display: flex; align-items: center;
+            font-size: 1.05rem; border: 1px solid var(--border);
+            padding: 14px 18px; border-radius: 12px;
+            background: rgba(30,41,59,0.5); cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-item:hover {
+            border-color: var(--accent); background: rgba(34,211,238,0.08);
+        }
+        .option-item input[type="radio"] {
+            width: 20px; height: 20px; margin-right: 14px;
+            accent-color: var(--accent); cursor: pointer;
+        }
+        .option-item label { width: 100%; cursor: pointer; color: var(--text); }
+        .nav-btn {
+            background: linear-gradient(135deg, #22d3ee, #0891b2);
+            border: none; color: #0a0f1a;
+            font-size: 1rem; font-weight: 700; padding: 16px;
+            width: 100%; cursor: pointer; border-radius: 12px;
+            font-family: inherit; transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(34,211,238,0.35);
+        }
+        .result-area {
+            background: var(--surface); backdrop-filter: blur(12px);
+            border: 1px solid var(--border); border-radius: 18px;
+            font-size: 1.6rem; text-align: center; padding: 40px 28px;
+            margin-top: 12px; color: var(--text);
+        }
+        .result-area #scoreValue {
+            color: var(--accent); font-size: 2.4rem; font-weight: 800;
+            display: block; margin: 8px 0;
+        }
+        .restart-btn {
+            background: rgba(34,211,238,0.15); color: var(--accent);
+            border: 1px solid var(--border); margin-top: 24px;
+            font-size: 1rem; padding: 14px 28px; border-radius: 12px;
+            cursor: pointer; font-weight: 600; font-family: inherit;
+            transition: all 0.2s;
+        }
+        .restart-btn:hover {
+            background: rgba(34,211,238,0.25); border-color: var(--accent);
+        }
+        .hidden { display: none !important; }
+        @media (max-width: 700px) {
+            .nav-links { display: none; }
+            .nav-links.open { display: flex; width: 100%; flex-direction: column; }
+            .menu-toggle { display: block; }
+            .q-text { font-size: 1.1rem; }
+            .timer-block { font-size: 2rem; }
+            .option-item { font-size: 0.95rem; padding: 12px 14px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-layer"></div>
+    <div class="bg-grid"></div>
+    <nav class="top-nav">
+        <div class="top-nav-inner">
+            <a href="index.html" class="nav-brand">
+                <span class="mark">⚛</span>
+                <span data-i18n="siteTitle">SCANNERI ELEMENTHO</span>
+            </a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+            <div class="nav-links" id="navLinks">
+                <a href="photo.html" data-i18n="btnTable">Ҷадвали Менделеев</a>
+                <a href="photo2.html" data-i18n="btnInfo">Маълумот</a>
+                <a href="photo3.html" data-i18n="btnCalc">Калькулятор</a>
+                <a href="photo4.html" class="active" data-i18n="btnTest">Тестҳо</a>
+            </div>
+        </div>
+    </nav>
+    <div class="test-wrapper" id="testWrapper">
+        <div class="test-header">
+            <h2 data-i18n="testTitle">🧪 ТЕСТХО</h2>
+            <div class="sub" data-i18n="testSub"> 40 савол • ба ҳар савол 1 дақиқа</div>
+        </div>
+        <div class="timer-block" id="timerDisplay">01:00</div>
+        <div id="questionArea" class="question-panel">
+            <div class="q-counter" id="questionCounter">Саволи 1 / 40</div>
+            <div class="q-text" id="questionText">Загрузка...</div>
+            <div class="options" id="optionsContainer"></div>
+        </div>
+        <button class="nav-btn" id="nextBtn" data-i18n="nextBtn">▶ БА САВОЛИ ОЯНДА</button>
+        <div id="resultBlock" class="result-area hidden">
+            🏆 <span id="scoreValue">0</span>
+            <span data-i18n="scoreText">аз 40 дуруст</span>
+            <br>
+            <button class="restart-btn" id="restartBtn" data-i18n="restartBtn">🔁 Аз нав оғоз</button>
+        </div>
+    </div>
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('navLinks').classList.toggle('open');
+        });
+        (function () {
+            function getQuestions() {
+                if (window.i18n && typeof i18n.getQuizQuestions === 'function') {
+                    return i18n.getQuizQuestions().map(item => ({
+                        question: item.q,
+                        options: item.o,
+                        correct: item.c
+                    }));
+                }
+                return [];
+            }
+            let questions = getQuestions();
+            let TOTAL_QS = questions.length || 25;
+            let currentIndex = 0;
+            let userAnswers = new Array(TOTAL_QS).fill(null);
+            let timerInterval = null;
+            let timeLeft = 60;
+            const TIME_PER_QUESTION = 60;
+            const timerEl = document.getElementById('timerDisplay');
+            const qCounterEl = document.getElementById('questionCounter');
+            const qTextEl = document.getElementById('questionText');
+            const optionsContainer = document.getElementById('optionsContainer');
+            const nextBtn = document.getElementById('nextBtn');
+            const questionArea = document.getElementById('questionArea');
+            const resultBlock = document.getElementById('resultBlock');
+            const scoreSpan = document.getElementById('scoreValue');
+            const restartBtn = document.getElementById('restartBtn');
+            function stopTimer() {
+                if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+            }
+            function startTimer() {
+                stopTimer();
+                timeLeft = TIME_PER_QUESTION;
+                updateTimerDisplay();
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    if (timeLeft <= 0) { stopTimer(); moveToNextQuestion(); }
+                }, 1000);
+            }
+            function updateTimerDisplay() {
+                const mins = Math.floor(Math.max(0, timeLeft) / 60);
+                const secs = Math.max(0, timeLeft) % 60;
+                timerEl.textContent = mins.toString().padStart(2, '0') + ':' + secs.toString().padStart(2, '0');
+            }
+            function renderQuestion() {
+                questions = getQuestions();
+                TOTAL_QS = questions.length;
+                if (!questions.length) {
+                    qTextEl.textContent = (window.i18n ? i18n.t('loading') : 'Loading...');
+                    return;
+                }
+                const q = questions[currentIndex];
+                const prefix = (window.i18n ? i18n.t('questionOf', { n: currentIndex + 1, total: TOTAL_QS }) : 'Саволи ' + (currentIndex + 1) + ' / ' + TOTAL_QS);
+                qCounterEl.textContent = prefix;
+                qTextEl.textContent = q.question;
+                let htmlStr = '';
+                for (let i = 0; i < q.options.length; i++) {
+                    const checkedAttr = (userAnswers[currentIndex] === i) ? 'checked' : '';
+                    htmlStr += '<div class="option-item"><input type="radio" name="qOption" value="' + i + '" id="opt' + i + '" ' + checkedAttr + '><label for="opt' + i + '">' + q.options[i] + '</label></div>';
+                }
+                optionsContainer.innerHTML = htmlStr;
+                document.querySelectorAll('input[name="qOption"]').forEach(radio => {
+                    radio.addEventListener('change', function (e) {
+                        userAnswers[currentIndex] = parseInt(e.target.value);
+                    });
+                });
+                startTimer();
+            }
+            function calculateScore() {
+                let correct = 0;
+                for (let i = 0; i < TOTAL_QS; i++) {
+                    if (userAnswers[i] !== null && userAnswers[i] === questions[i].correct) correct++;
+                }
+                return correct;
+            }
+            function moveToNextQuestion() {
+                stopTimer();
+                if (currentIndex === TOTAL_QS - 1) { showResults(); return; }
+                currentIndex++;
+                renderQuestion();
+            }
+            function showResults() {
+                stopTimer();
+                questionArea.classList.add('hidden');
+                nextBtn.classList.add('hidden');
+                resultBlock.classList.remove('hidden');
+                scoreSpan.textContent = calculateScore();
+            }
+            function restartTest() {
+                stopTimer();
+                currentIndex = 0;
+                userAnswers = new Array(TOTAL_QS).fill(null);
+                questionArea.classList.remove('hidden');
+                nextBtn.classList.remove('hidden');
+                resultBlock.classList.add('hidden');
+                renderQuestion();
+            }
+            nextBtn.addEventListener('click', moveToNextQuestion);
+            restartBtn.addEventListener('click', restartTest);
+            document.addEventListener('languageChanged', () => {
+                questions = getQuestions();
+                TOTAL_QS = questions.length;
+                userAnswers = new Array(TOTAL_QS).fill(null);
+                currentIndex = 0;
+                if (!resultBlock.classList.contains('hidden')) restartTest();
+                else renderQuestion();
+            });
+            function initTest() {
+                resultBlock.classList.add('hidden');
+                questionArea.classList.remove('hidden');
+                nextBtn.classList.remove('hidden');
+                setTimeout(() => {
+                    questions = getQuestions();
+                    TOTAL_QS = questions.length || 25;
+                    userAnswers = new Array(TOTAL_QS).fill(null);
+                    renderQuestion();
+                }, 50);
+            }
+            initTest();
+        })();
+    </script>
+    <script src="js/i18n.js"></script>
+<script src="js/site-runtime.js"></script>
+</body>
+</html>
