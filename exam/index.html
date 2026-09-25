@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Имтиҳони пурраи ММТ — Кластери 5. 60 савол, 70 дақиқа, шарҳи хатогиҳо.">
+  <title>Имтиҳони ММТ · Кластери 5 | SCANNERI</title>
+  <link rel="stylesheet" href="exam.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Навигация">
+      <a class="brand" href="../index.html"><span class="brand-mark">5</span> SCANNERI</a>
+      <div class="nav-links">
+        <a href="../index.html">Асосӣ</a>
+        <a href="../ximiya/index.html">Химия</a>
+        <a href="../biology/index.html">Биология</a>
+        <a href="../physics/index.html">Физика</a>
+        <a href="../tajik/index.html">Тоҷикӣ</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section id="startScreen" class="card start-card">
+      <p class="eyebrow">Кластери 5 · ММТ</p>
+      <h1>Имтиҳони пурра</h1>
+      <p class="lead">Симулятори рӯзи имтиҳони ММТ: ҳамаи 4 фан дар як маротиба. Пас аз анҷом — шарҳи хатогиҳо.</p>
+
+      <div class="stats">
+        <div class="stat-box"><strong>60</strong><span>савол</span></div>
+        <div class="stat-box"><strong>70</strong><span>дақиқа</span></div>
+        <div class="stat-box"><strong>4</strong><span>фан</span></div>
+      </div>
+
+      <ul class="rules">
+        <li>15 савол аз ҳар фан (химия, биология, физика, тоҷикӣ)</li>
+        <li>Саволҳо пайдарпай — фанҳо иваз мешаванд</li>
+        <li>Як ҷавоби дуруст барои ҳар савол</li>
+        <li>Пас аз анҷом: натиҷа + шарҳи хатогиҳо</li>
+      </ul>
+
+      <button type="button" class="btn btn-primary" id="startBtn">Оғози имтиҳон →</button>
+      <p><a class="back-link" href="../index.html">← Бозгашт ба асосӣ</a></p>
+    </section>
+
+    <section id="examScreen" class="hidden">
+      <div class="meta-row">
+        <span class="progress-text" id="progressText">Савол 1 аз 60</span>
+        <span class="timer" id="timer">70:00</span>
+      </div>
+
+      <div class="subject-row">
+        <span class="subject-badge" id="subjectBadge">⚗ Химия</span>
+        <span class="subject-progress" id="subjectProgress">1 / 15 дар ин фан</span>
+      </div>
+
+      <div class="card question-panel">
+        <p class="q-num" id="questionNum">Саволи 1</p>
+        <h2 class="q-text" id="questionText">…</h2>
+        <div class="options" id="options"></div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn btn-primary btn-block" id="nextBtn">Саволи навбатӣ →</button>
+      </div>
+      <p class="message" id="message" role="status"></p>
+    </section>
+
+    <section id="resultScreen" class="card result-card hidden">
+      <p class="eyebrow">Натиҷа</p>
+      <h2>Имтиҳон ба анҷом расид</h2>
+      <span class="result-score" id="totalScore">0 / 60</span>
+      <p class="result-percent" id="totalPercent">0%</p>
+
+      <div class="subj-results" id="subjectResults"></div>
+
+      <div class="btn-row">
+        <button type="button" class="btn btn-ghost" id="showReviewBtn">Шарҳи хатогиҳо ↓</button>
+        <button type="button" class="btn btn-primary" id="restartBtn">Бори дигар</button>
+      </div>
+
+      <div id="reviewSection" class="review-section hidden">
+        <h3>Шарҳи ҷавобҳои нодуруст</h3>
+        <div id="reviewList"></div>
+      </div>
+
+      <p><a class="back-link" href="../index.html">← Ба саҳифаи асосӣ</a></p>
+    </section>
+  </main>
+
+  <script src="exam.js"></script>
+</body>
+</html>
