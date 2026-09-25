@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Имтиҳони пурраи ММТ — Кластери 5. 60 савол, 70 дақиқа.">
+  <title>Имтиҳони ММТ · Кластери 5 | SCANNERI</title>
+  <style>
+    :root {
+      --bg: #0c1222;
+      --surface: rgba(20, 28, 46, .92);
+      --surface-strong: rgba(25, 35, 57, .96);
+      --gold: #c9a227;
+      --gold-light: #e8d48b;
+      --teal: #2dd4bf;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --dim: #64748b;
+      --border: rgba(201, 162, 39, .22);
+      --border-soft: rgba(148, 163, 184, .12);
+      --danger: #f87171;
+      --radius: 12px;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      min-width: 320px;
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201, 162, 39, .07), transparent 55%),
+        radial-gradient(ellipse 50% 40% at 100% 80%, rgba(45, 212, 191, .05), transparent 50%),
+        var(--bg);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+    .hidden { display: none !important; }
+
+    .site-header {
+      position: sticky; top: 0; z-index: 10;
+      border-bottom: 1px solid var(--border-soft);
+      background: rgba(12, 18, 34, .92);
+      backdrop-filter: blur(14px);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      max-width: 860px; margin: auto; padding: 13px 20px;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 10px;
+      color: var(--gold-light); font-weight: 800; letter-spacing: .04em;
+    }
+    .brand-mark {
+      display: grid; place-items: center;
+      width: 32px; height: 32px;
+      border: 1px solid var(--gold); border-radius: 9px;
+      color: var(--bg);
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      font-size: .83rem;
+    }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 6px; }
+    .nav-links a {
+      padding: 6px 10px; border-radius: 8px; color: var(--muted); font-size: .88rem;
+    }
+    .nav-links a:hover { color: var(--gold-light); background: rgba(201,162,39,.08); }
+
+    .wrap { max-width: 720px; margin: 0 auto; padding: 28px 20px 48px; }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-bottom: 10px; color: var(--teal);
+      font-size: .75rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 20px; height: 1px; background: var(--teal); }
+
+    h1 { margin: 0 0 10px; font-size: clamp(1.6rem, 4vw, 2.1rem); color: var(--gold-light); line-height: 1.2; }
+    .lead { margin: 0 0 22px; color: var(--muted); font-size: 1rem; }
+
+    .card {
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 22px;
+    }
+
+    .start-card { text-align: center; padding: 36px 24px; }
+    .start-card .stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+      margin: 24px 0 28px;
+    }
+    .stat-box {
+      padding: 14px 10px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: rgba(201, 162, 39, .06);
+    }
+    .stat-box strong {
+      display: block; color: var(--gold-light); font-size: 1.5rem; line-height: 1.2;
+    }
+    .stat-box span { color: var(--muted); font-size: .82rem; }
+    .rules {
+      text-align: left; margin: 0 auto 28px; max-width: 420px;
+      color: var(--muted); font-size: .92rem;
+    }
+    .rules li { margin-bottom: 6px; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: 0 28px; border: none; border-radius: 10px;
+      font-weight: 800; font-size: 1rem; cursor: pointer;
+      transition: transform .15s, filter .15s;
+    }
+    .btn-primary {
+      color: #0c1222;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      box-shadow: 0 4px 18px rgba(201, 162, 39, .28);
+    }
+    .btn-primary:hover { filter: brightness(1.08); transform: translateY(-2px); }
+    .btn-block { width: 100%; }
+
+    .meta-row {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 12px; margin-bottom: 18px;
+    }
+    .progress-text { color: var(--muted); font-size: .9rem; font-weight: 600; }
+    .timer {
+      font-variant-numeric: tabular-nums;
+      font-size: 1.35rem; font-weight: 800; color: var(--teal);
+      padding: 6px 14px; border-radius: 8px;
+      background: rgba(45, 212, 191, .1); border: 1px solid rgba(45, 212, 191, .25);
+    }
+    .timer.warning { color: var(--danger); background: rgba(248, 113, 113, .12); border-color: rgba(248, 113, 113, .35); }
+
+    .subject-row {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+      margin-bottom: 16px;
+    }
+    .subject-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 8px;
+      font-size: .88rem; font-weight: 700;
+      background: rgba(201, 162, 39, .12); border: 1px solid var(--border);
+      color: var(--gold-light);
+    }
+    .subject-progress { color: var(--dim); font-size: .85rem; }
+
+    .question-panel { margin-bottom: 8px; }
+    .q-num { margin: 0 0 6px; color: var(--teal); font-size: .82rem; font-weight: 700; letter-spacing: .04em; }
+    .q-text { margin: 0 0 18px; font-size: 1.15rem; font-weight: 650; line-height: 1.4; }
+
+    .options { display: grid; gap: 10px; }
+    .option-btn {
+      width: 100%; text-align: left;
+      padding: 14px 16px; border-radius: 10px;
+      border: 1px solid var(--border-soft);
+      background: rgba(15, 23, 42, .6);
+      color: var(--text); font-size: 1rem; cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+    .option-btn:hover { border-color: rgba(201, 162, 39, .45); background: rgba(201, 162, 39, .08); }
+    .option-btn.selected {
+      border-color: var(--teal);
+      background: rgba(45, 212, 191, .12);
+      box-shadow: 0 0 0 1px rgba(45, 212, 191, .25);
+    }
+
+    .actions { margin-top: 20px; }
+    .message {
+      min-height: 1.4em; margin: 12px 0 0;
+      color: var(--danger); font-size: .9rem; text-align: center;
+    }
+
+    .result-card { text-align: center; padding: 32px 22px; }
+    .result-card h2 { margin: 0 0 8px; color: var(--gold-light); }
+    .result-score {
+      display: block; margin: 16px 0 4px;
+      font-size: 2.6rem; font-weight: 800; color: var(--teal); line-height: 1;
+    }
+    .result-percent { margin: 0 0 24px; color: var(--muted); font-size: 1.1rem; }
+
+    .subj-results { text-align: left; margin: 0 0 28px; display: grid; gap: 14px; }
+    .subj-result {
+      padding: 12px 14px; border-radius: 10px;
+      border: 1px solid var(--border-soft); background: rgba(15, 23, 42, .5);
+    }
+    .subj-name { font-weight: 700; color: var(--gold-light); }
+    .subj-score { float: right; color: var(--teal); font-weight: 700; }
+    .subj-bar {
+      clear: both; margin-top: 10px; height: 6px; border-radius: 3px;
+      background: rgba(148, 163, 184, .15); overflow: hidden;
+    }
+    .subj-fill {
+      height: 100%; border-radius: 3px;
+      background: linear-gradient(90deg, var(--teal), #14b8a6);
+      transition: width .4s ease;
+    }
+
+    .back-link {
+      display: inline-block; margin-top: 20px;
+      color: var(--muted); font-size: .9rem;
+    }
+    .back-link:hover { color: var(--gold-light); }
+
+    @media (max-width: 520px) {
+      .start-card .stats { grid-template-columns: 1fr; }
+      .meta-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Навигация">
+      <a class="brand" href="index.html"><span class="brand-mark">5</span> SCANNERI</a>
+      <div class="nav-links">
+        <a href="index.html">Асосӣ</a>
+        <a href="ximiya/index.html">Химия</a>
+        <a href="biology/index.html">Биология</a>
+        <a href="physics/index.html">Физика</a>
+        <a href="tajik/index.html">Тоҷикӣ</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <!-- СТАРТ -->
+    <section id="startScreen" class="card start-card">
+      <p class="eyebrow">Кластери 5 · ММТ</p>
+      <h1>Имтиҳони пурра</h1>
+      <p class="lead">Симулятори рӯзи имтиҳони ММТ: ҳамаи 4 фан дар як маротиба.</p>
+
+      <div class="stats">
+        <div class="stat-box"><strong>60</strong><span>савол</span></div>
+        <div class="stat-box"><strong>70</strong><span>дақиқа</span></div>
+        <div class="stat-box"><strong>4</strong><span>фан</span></div>
+      </div>
+
+      <ul class="rules">
+        <li>15 савол аз ҳар фан (химия, биология, физика, тоҷикӣ)</li>
+        <li>Саволҳо пайдарпай — фанҳо иваз мешаванд</li>
+        <li>Як ҷавоби дуруст барои ҳар савол</li>
+        <li>Пас аз анҷом: натиҷаи умумӣ + ҷудо аз рӯи фанҳо</li>
+      </ul>
+
+      <button type="button" class="btn btn-primary" id="startBtn">Оғози имтиҳон →</button>
+      <p><a class="back-link" href="index.html">← Бозгашт ба асосӣ</a></p>
+    </section>
+
+    <!-- ЭКЗАМЕН -->
+    <section id="examScreen" class="hidden">
+      <div class="meta-row">
+        <span class="progress-text" id="progressText">Савол 1 аз 60</span>
+        <span class="timer" id="timer">70:00</span>
+      </div>
+
+      <div class="subject-row">
+        <span class="subject-badge" id="subjectBadge">⚗ Химия</span>
+        <span class="subject-progress" id="subjectProgress">1 / 15 дар ин фан</span>
+      </div>
+
+      <div class="card question-panel">
+        <p class="q-num" id="questionNum">Саволи 1</p>
+        <h2 class="q-text" id="questionText">…</h2>
+        <div class="options" id="options"></div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn btn-primary btn-block" id="nextBtn">Саволи навбатӣ →</button>
+      </div>
+      <p class="message" id="message" role="status"></p>
+    </section>
+
+    <!-- НАТИҶА -->
+    <section id="resultScreen" class="card result-card hidden">
+      <p class="eyebrow">Натиҷа</p>
+      <h2>Имтиҳон ба анҷом расид</h2>
+      <span class="result-score" id="totalScore">0 / 60</span>
+      <p class="result-percent" id="totalPercent">0%</p>
+
+      <div class="subj-results" id="subjectResults"></div>
+
+      <button type="button" class="btn btn-primary" id="restartBtn">Бори дигар</button>
+      <p><a class="back-link" href="index.html">← Ба саҳифаи асосӣ</a></p>
+    </section>
+  </main>
+
+  <script src="exam.js"></script>
+</body>
+</html>
