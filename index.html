@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Платформаи омодагӣ ба ММТ — Кластери 5. Химия, биология, физика, забони тоҷикӣ. Имтиҳони пурра.">
+  <meta name="description" content="Платформаи омодагӣ ба ММТ — Кластери 5. Химия, биология, физика, забони тоҷикӣ.">
   <title>SCANNERI · Кластери 5</title>
   <style>
     :root {
@@ -145,12 +145,6 @@
       color: var(--muted);
       font-size: 1rem;
     }
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-    }
     .button {
       display: inline-flex;
       align-items: center;
@@ -171,16 +165,6 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(201, 162, 39, .35);
       outline: none;
-    }
-    .button-outline {
-      color: var(--gold-light);
-      background: transparent;
-      border: 1px solid var(--border);
-      box-shadow: none;
-    }
-    .button-outline:hover {
-      background: rgba(201, 162, 39, .1);
-      border-color: rgba(201, 162, 39, .5);
     }
 
     .hero-panel {
@@ -291,35 +275,6 @@
       box-shadow: none;
     }
 
-    .exam-banner {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 24px;
-      align-items: center;
-      padding: 28px;
-      border: 1px solid rgba(45, 212, 191, .35);
-      border-radius: var(--radius);
-      background:
-        linear-gradient(135deg, rgba(45, 212, 191, .08), rgba(201, 162, 39, .06)),
-        rgba(20, 28, 46, .85);
-    }
-    .exam-banner h2 {
-      margin: 0 0 8px;
-      color: var(--gold-light);
-      font-size: clamp(1.35rem, 2.8vw, 1.75rem);
-    }
-    .exam-banner p {
-      margin: 0;
-      color: var(--muted);
-      font-size: .95rem;
-    }
-    .exam-banner .button {
-      white-space: nowrap;
-      background: linear-gradient(135deg, var(--teal), #14b8a6);
-      color: #0c1222;
-      box-shadow: 0 4px 18px rgba(45, 212, 191, .3);
-    }
-
     .cluster-box {
       display: grid;
       grid-template-columns: 1fr 1.35fr;
@@ -337,6 +292,20 @@
     }
     .cluster-box p { margin-bottom: 0; color: var(--muted); }
     .cluster-box strong { color: var(--text); }
+    .cluster-exam {
+      display: inline-block;
+      margin-top: 14px;
+      color: var(--teal);
+      font-size: .92rem;
+      font-weight: 650;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color .2s, color .2s;
+    }
+    .cluster-exam:hover {
+      color: var(--gold-light);
+      border-bottom-color: rgba(201, 162, 39, .45);
+    }
 
     footer {
       margin-top: 20px;
@@ -362,7 +331,6 @@
       .hero-panel { max-width: 520px; }
       .subjects-grid { grid-template-columns: repeat(2, 1fr); }
       .cluster-box { grid-template-columns: 1fr; gap: 12px; }
-      .exam-banner { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
       .nav {
@@ -413,31 +381,18 @@
         <p class="eyebrow">Платформаи ММТ</p>
         <h1 id="hero-title">SCANNERI <span>· Кластери 5</span></h1>
         <p class="hero-lead">Омодагӣ ба ММТ барои довталабони тиб, биология ва варзиш</p>
-        <p class="hero-copy">Ҳамаи фанҳои кластери 5 дар як ҷо: тестҳо, маводи омӯзишӣ, калкуляторҳо ва имтиҳони пурра.</p>
-        <div class="hero-actions">
-          <a class="button" href="exam.html">Имтиҳони ММТ →</a>
-          <a class="button button-outline" href="#fanho">Интихоби фан</a>
-        </div>
+        <p class="hero-copy">Ҳамаи фанҳои кластери 5 дар як ҷо: тестҳо, маводи омӯзишӣ ва калкуляторҳо барои машқи ҳаррӯза.</p>
+        <a class="button" href="#fanho">Интихоби фан →</a>
       </div>
       <aside class="hero-panel" aria-label="Хусусиятҳои платформа">
         <p class="panel-kicker">Кластери 5 · ММТ</p>
         <div class="panel-stat"><strong>4</strong><span>фан дар як ҷо</span></div>
         <ul class="panel-list">
-          <li>Имтиҳони пурра (60 савол)</li>
-          <li>Тестҳо бо таймер</li>
-          <li>Калкуляторҳо ва китобҳо</li>
+          <li>Машқи мунтазам ва фаҳмо</li>
+          <li>Тестҳо барои санҷиши дониш</li>
+          <li>Асбобҳои ёрирасон барои ҳисоб</li>
         </ul>
       </aside>
-    </section>
-
-    <section class="container" aria-labelledby="exam-title">
-      <div class="exam-banner">
-        <div>
-          <h2 id="exam-title">Имтиҳони пурраи ММТ</h2>
-          <p>60 савол · 70 дақиқа · 4 фан пайдарпай. Натиҷаи умумӣ ва ҷудо аз рӯи ҳар фан.</p>
-        </div>
-        <a class="button" href="exam.html">Оғоз кардан →</a>
-      </div>
     </section>
 
     <section class="container" aria-labelledby="why-title">
@@ -453,8 +408,8 @@
         </article>
         <article class="card why-card">
           <div class="why-icon" aria-hidden="true">◷</div>
-          <h3>Имтиҳони пурра</h3>
-          <p>Симулятори рӯзи ММТ: ҳамаи фанҳо, таймер ва натиҷаи ҷудо.</p>
+          <h3>Тестҳо бо таймер</h3>
+          <p>Суръат ва диққати худро бо машқҳои ба ММТ монанд санҷед.</p>
         </article>
         <article class="card why-card">
           <div class="why-icon" aria-hidden="true">⌁</div>
@@ -500,9 +455,12 @@
     <section class="container" aria-labelledby="cluster-title">
       <div class="cluster-box">
         <h2 id="cluster-title">Кластери 5 чист?</h2>
-        <p><strong>Кластери 5</strong> — самти тиб, биология ва варзиш дар ММТ.<br>
-          Фанҳо: химия, биология, физика ва забони тоҷикӣ.<br>
-          Ин сайт барои машқи ҳамин фанҳо ва омодагии беҳтар ба имтиҳон аст.</p>
+        <div>
+          <p><strong>Кластери 5</strong> — самти тиб, биология ва варзиш дар ММТ.<br>
+            Фанҳо: химия, биология, физика ва забони тоҷикӣ.<br>
+            Ин сайт барои машқи ҳамин фанҳо ва омодагии беҳтар ба имтиҳон аст.</p>
+          <a class="cluster-exam" href="exam.html">Имтиҳони пурраи ММТ (60 савол) →</a>
+        </div>
       </div>
     </section>
   </main>
